@@ -940,10 +940,12 @@ impl NetworkManagerState {
                     ("phase2-auth", Value::Str("mschapv2".into())),
                 ]),
             );
-            conn_settings
-                .get_mut("802-1x")
-                .unwrap()
-                .insert("password", Value::Str(password.unwrap_or("").into()));
+            if secret_tx.is_none() {
+                conn_settings
+                    .get_mut("802-1x")
+                    .unwrap()
+                    .insert("password", Value::Str(password.unwrap_or("").into()));
+            }
             let wireless = conn_settings.get_mut("802-11-wireless").unwrap();
             wireless.insert("security", Value::Str("802-11-wireless-security".into()));
             wireless.insert("mode", Value::Str("infrastructure".into()));
@@ -954,7 +956,9 @@ impl NetworkManagerState {
         } else if let Some(pass) = password {
             let entry = conn_settings.entry("802-11-wireless-security").or_default();
             _ = entry.insert("key-mgmt", Value::Str("wpa-psk".into()));
-            _ = entry.insert("psk", Value::Str(pass.into()));
+            if secret_tx.is_none() {
+                _ = entry.insert("psk", Value::Str(pass.into()));
+            }
         }
 
         let devices = nm.devices().await?;
