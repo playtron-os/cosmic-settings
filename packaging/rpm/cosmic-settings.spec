@@ -54,6 +54,7 @@ install -Dm0644 "%{getenv:COSMIC_SETTINGS_SOURCE}/LICENSE.md" "%{buildroot}%{_da
 %{_bindir}/cosmic-settings
 %{_datadir}/applications/com.system76.CosmicSettings*.desktop
 %{_datadir}/icons/hicolor/*/apps/com.system76.CosmicSettings.svg
+%{_datadir}/icons/hicolor/*/status/*.svg
 %{_datadir}/cosmic/*
 %{_datadir}/metainfo/com.system76.CosmicSettings.metainfo.xml
 %{_datadir}/polkit-1/actions/com.system76.CosmicSettings.Users.policy
