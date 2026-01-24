@@ -9,6 +9,7 @@ URL:            https://github.com/pop-os/cosmic-settings
 
 # No BuildRequires - binary is pre-built
 
+Requires:       accountsservice
 Requires:       dbus
 Requires:       polkit
 
