@@ -10,3 +10,8 @@ debian/*
 !debian/rules
 !debian/source
 !debian/install
+
+dist/
+.task
+.cache
+node_modules
