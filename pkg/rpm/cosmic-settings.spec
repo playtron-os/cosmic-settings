@@ -1,11 +1,12 @@
 Name:           cosmic-settings
 Epoch:          1
-Version:        %{getenv:COSMIC_SETTINGS_VERSION}
+Version:        1.0.5
 Release:        1%{?dist}
 Summary:        COSMIC Settings - System settings application for COSMIC desktop (Playtron fork)
 
 License:        GPL-3.0-only
 URL:            https://github.com/pop-os/cosmic-settings
+Source0:        %{name}-%{_arch}.tar.gz
 
 # No BuildRequires - binary is pre-built
 
@@ -23,32 +24,35 @@ Provides a graphical interface for configuring system settings including
 display, input, network, sound, appearance, and more.
 
 %prep
+%autosetup -n %{name} -p1
+
 %build
 
 %install
-# COSMIC_SETTINGS_SOURCE is set by the build script
-
 # Binary
-install -Dm0755 "%{getenv:COSMIC_SETTINGS_SOURCE}/target/release/cosmic-settings" "%{buildroot}%{_bindir}/cosmic-settings"
+install -Dm0755 "usr/bin/cosmic-settings" "%{buildroot}%{_bindir}/cosmic-settings"
 
 # Desktop files
-cd "%{getenv:COSMIC_SETTINGS_SOURCE}/resources/applications" && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/applications/{}" \;
+cd "usr/share/applications" && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/applications/{}" \;
+cd -
 
 # Icons
-cd "%{getenv:COSMIC_SETTINGS_SOURCE}/resources/icons" && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/icons/hicolor/{}" \;
+cd "usr/share/icons/hicolor" && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/icons/hicolor/{}" \;
+cd -
 
 # Default schema (COSMIC configuration defaults)
-cd "%{getenv:COSMIC_SETTINGS_SOURCE}/resources/default_schema" && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/cosmic/{}" \;
+cd "usr/share/cosmic" && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/cosmic/{}" \;
+cd -
 
 # Metainfo
-install -Dm0644 "%{getenv:COSMIC_SETTINGS_SOURCE}/resources/com.system76.CosmicSettings.metainfo.xml" "%{buildroot}%{_datadir}/metainfo/com.system76.CosmicSettings.metainfo.xml"
+install -Dm0644 "usr/share/metainfo/com.system76.CosmicSettings.metainfo.xml" "%{buildroot}%{_datadir}/metainfo/com.system76.CosmicSettings.metainfo.xml"
 
 # Polkit policy and rules
-install -Dm0644 "%{getenv:COSMIC_SETTINGS_SOURCE}/resources/polkit-1/actions/com.system76.CosmicSettings.Users.policy" "%{buildroot}%{_datadir}/polkit-1/actions/com.system76.CosmicSettings.Users.policy"
-install -Dm0644 "%{getenv:COSMIC_SETTINGS_SOURCE}/resources/polkit-1/rules.d/cosmic-settings.rules" "%{buildroot}%{_datadir}/polkit-1/rules.d/cosmic-settings.rules"
+install -Dm0644 "usr/share/polkit-1/actions/com.system76.CosmicSettings.Users.policy" "%{buildroot}%{_datadir}/polkit-1/actions/com.system76.CosmicSettings.Users.policy"
+install -Dm0644 "usr/share/polkit-1/rules.d/cosmic-settings.rules" "%{buildroot}%{_datadir}/polkit-1/rules.d/cosmic-settings.rules"
 
 # License
-install -Dm0644 "%{getenv:COSMIC_SETTINGS_SOURCE}/LICENSE.md" "%{buildroot}%{_datadir}/licenses/cosmic-settings/LICENSE.md"
+install -Dm0644 "usr/share/licenses/cosmic-settings/LICENSE.md" "%{buildroot}%{_datadir}/licenses/cosmic-settings/LICENSE.md"
 
 %files
 %license %{_datadir}/licenses/cosmic-settings/LICENSE.md
@@ -62,5 +66,5 @@ install -Dm0644 "%{getenv:COSMIC_SETTINGS_SOURCE}/LICENSE.md" "%{buildroot}%{_da
 %{_datadir}/polkit-1/rules.d/cosmic-settings.rules
 
 %changelog
-* Wed Jan 21 2026 Playtron <dev@playtron.one> - 1.0.4-1
+* Tue Feb 03 2026 Playtron <dev@playtron.one> - 1.0.5-1
 - Initial RPM package for Playtron fork
