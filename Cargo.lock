@@ -1657,7 +1657,7 @@ dependencies = [
 
 [[package]]
 name = "cosmic-settings"
-version = "1.0.5"
+version = "1.0.0"
 dependencies = [
  "accounts-zbus",
  "anyhow",
