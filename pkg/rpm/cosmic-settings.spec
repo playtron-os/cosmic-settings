@@ -1,6 +1,6 @@
 Name:           cosmic-settings
 Epoch:          1
-Version: 1.0.0
+Version: 1.0.1
 Release:        1%{?dist}
 Summary:        COSMIC Settings - System settings application for COSMIC desktop (Playtron fork)
 

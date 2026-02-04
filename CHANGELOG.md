@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/playtron-os/cosmic-settings/compare/v1.0.0...v1.0.1) (2026-02-04)
+
+
+### Bug Fixes
+
+* add missing release CI permission for PR/issues ([04de1c0](https://github.com/playtron-os/cosmic-settings/commit/04de1c0ce17c3afc2afbd8b8a4149ec9befb378c))
+
 # 1.0.0 (2026-02-04)
 
 
