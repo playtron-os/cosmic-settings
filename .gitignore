@@ -4,6 +4,7 @@ vendor
 vendor.tar
 .cargo
 debian/*
+dist/*
 !debian/changelog
 !debian/control
 !debian/copyright

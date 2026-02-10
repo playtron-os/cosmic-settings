@@ -188,6 +188,7 @@ impl From<Roundness> for CornerRadii {
                 radius_m: [16.0; 4],
                 radius_l: [32.0; 4],
                 radius_xl: [160.0; 4],
+                radius_window: [22.0; 4],
             },
             Roundness::SlightlyRound => CornerRadii {
                 radius_0: [0.0; 4],
@@ -196,6 +197,7 @@ impl From<Roundness> for CornerRadii {
                 radius_m: [8.0; 4],
                 radius_l: [8.0; 4],
                 radius_xl: [8.0; 4],
+                radius_window: [16.0; 4],
             },
             Roundness::Square => CornerRadii {
                 radius_0: [0.0; 4],
@@ -204,6 +206,7 @@ impl From<Roundness> for CornerRadii {
                 radius_m: [2.0; 4],
                 radius_l: [2.0; 4],
                 radius_xl: [2.0; 4],
+                radius_window: [0.0; 4],
             },
         }
     }

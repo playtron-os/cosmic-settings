@@ -61,12 +61,39 @@ debug = true
 # [patch.'https://github.com/pop-os/cosmic-settings-daemon']
 # cosmic-settings-config = { git = "https://github.com/pop-os/cosmic-settings-daemon//", branch = "input_nobuild" }
 
-# For development and testing purposes
-# [patch.'https://github.com/pop-os/libcosmic']
+# Redirect pop-os/libcosmic to playtron-os fork (required because transitive deps reference pop-os)
+[patch.'https://github.com/pop-os/libcosmic']
+libcosmic = { git = "https://github.com/playtron-os/libcosmic" }
+cosmic-config = { git = "https://github.com/playtron-os/libcosmic" }
+cosmic-theme = { git = "https://github.com/playtron-os/libcosmic" }
+iced = { git = "https://github.com/playtron-os/libcosmic" }
+iced_core = { git = "https://github.com/playtron-os/libcosmic" }
+iced_runtime = { git = "https://github.com/playtron-os/libcosmic" }
+iced_renderer = { git = "https://github.com/playtron-os/libcosmic" }
+iced_widget = { git = "https://github.com/playtron-os/libcosmic" }
+iced_futures = { git = "https://github.com/playtron-os/libcosmic" }
+iced_accessibility = { git = "https://github.com/playtron-os/libcosmic" }
+iced_tiny_skia = { git = "https://github.com/playtron-os/libcosmic" }
+iced_winit = { git = "https://github.com/playtron-os/libcosmic" }
+iced_wgpu = { git = "https://github.com/playtron-os/libcosmic" }
+iced_graphics = { git = "https://github.com/playtron-os/libcosmic" }
+
+# For local development (uncomment to use ../libcosmic instead of git)
+# [patch.'https://github.com/playtron-os/libcosmic']
 # libcosmic = { path = "../libcosmic" }
 # cosmic-config = { path = "../libcosmic/cosmic-config" }
 # cosmic-theme = { path = "../libcosmic/cosmic-theme" }
+# iced = { path = "../libcosmic/iced" }
+# iced_core = { path = "../libcosmic/iced/core" }
+# iced_runtime = { path = "../libcosmic/iced/runtime" }
+# iced_renderer = { path = "../libcosmic/iced/renderer" }
+# iced_widget = { path = "../libcosmic/iced/widget" }
 # iced_futures = { path = "../libcosmic/iced/futures" }
+# iced_accessibility = { path = "../libcosmic/iced/accessibility" }
+# iced_tiny_skia = { path = "../libcosmic/iced/tiny_skia" }
+# iced_winit = { path = "../libcosmic/iced/winit" }
+# iced_wgpu = { path = "../libcosmic/iced/wgpu" }
+# iced_graphics = { path = "../libcosmic/iced/graphics" }
 
 # [patch.'https://github.com/pop-os/dbus-settings-bindings']
 # cosmic-dbus-networkmanager = { path = "../dbus-settings-bindings/networkmanager" }
