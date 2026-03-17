@@ -94,6 +94,7 @@ impl SettingsApp {
             PageCommands::DateTime => self.pages.page_id::<time::date::Page>(),
             #[cfg(feature = "page-default-apps")]
             PageCommands::DefaultApps => self.pages.page_id::<applications::default_apps::Page>(),
+            #[cfg(feature = "page-desktop")]
             PageCommands::Desktop => self.pages.page_id::<desktop::Page>(),
             #[cfg(feature = "page-display")]
             PageCommands::Displays => self.pages.page_id::<display::Page>(),
@@ -221,7 +222,8 @@ impl cosmic::Application for SettingsApp {
         app.insert_page::<bluetooth::Page>();
         #[cfg(feature = "page-accessibility")]
         app.insert_page::<accessibility::Page>();
-        let desktop_id = app.insert_page::<desktop::Page>().id();
+        #[cfg(feature = "page-desktop")]
+        app.insert_page::<desktop::Page>();
         #[cfg(feature = "page-display")]
         app.insert_page::<display::Page>();
         #[cfg(feature = "page-sound")]
@@ -234,6 +236,13 @@ impl cosmic::Application for SettingsApp {
         app.insert_page::<time::Page>();
         app.insert_page::<system::Page>();
 
+        let first_page_id = app
+            .nav_model
+            .iter()
+            .next()
+            .and_then(|nav_id| app.nav_model.data::<page::Entity>(nav_id).copied())
+            .unwrap_or_default();
+
         let active_id = match flags.sub_command {
             Some(p) => app.subtask_to_page(&p),
             None => app
@@ -241,7 +250,7 @@ impl cosmic::Application for SettingsApp {
                 .find_page_by_id(&app.last_active_page)
                 .map(|(id, _info)| id),
         }
-        .unwrap_or(desktop_id);
+        .unwrap_or(first_page_id);
 
         let task = Task::batch([
             cosmic::command::set_theme(cosmic::theme::system_preference()),
@@ -462,6 +471,7 @@ impl cosmic::Application for SettingsApp {
                     }
                 }
 
+                #[cfg(feature = "page-desktop")]
                 crate::pages::Message::Desktop(message) => {
                     page::update!(self.pages, message, desktop::Page);
                 }

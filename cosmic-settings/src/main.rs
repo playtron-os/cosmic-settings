@@ -80,6 +80,7 @@ pub enum PageCommands {
     #[cfg(feature = "page-default-apps")]
     DefaultApps,
     /// Desktop settings page
+    #[cfg(feature = "page-desktop")]
     Desktop,
     /// Displays settings page
     #[cfg(feature = "page-display")]

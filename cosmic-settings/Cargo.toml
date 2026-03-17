@@ -132,6 +132,8 @@ linux = [
     "wayland",
 ]
 
+page-desktop = []
+
 # Pages
 page-accessibility = [
     "cosmic-comp-config",

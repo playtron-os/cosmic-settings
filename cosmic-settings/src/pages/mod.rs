@@ -45,6 +45,7 @@ pub enum Message {
     DateAndTime(time::date::Message),
     #[cfg(feature = "page-default-apps")]
     DefaultApps(applications::default_apps::Message),
+    #[cfg(feature = "page-desktop")]
     Desktop(desktop::Message),
     DesktopWallpaper(desktop::wallpaper::Message),
     #[cfg(feature = "page-workspaces")]
