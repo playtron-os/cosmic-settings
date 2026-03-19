@@ -441,7 +441,7 @@ pub enum Message {
 
 impl PageInner {
     pub(crate) fn update_defaults(&mut self) {
-        let theme = cosmic::theme::system_preference();
+        let theme = cosmic::theme::system_light();
         let theme = theme.cosmic();
 
         let Some(default) = self.system_default.as_mut() else {
@@ -490,7 +490,7 @@ impl PageInner {
                     .as_mut()
                     .zip(self.config_helper.as_ref())
                 {
-                    let theme = cosmic::theme::system_preference();
+                    let theme = cosmic::theme::system_light();
                     let theme = theme.cosmic();
                     let radius = theme.corner_radii;
                     let roundness: Roundness = radius.into();
@@ -520,7 +520,7 @@ impl PageInner {
                     tracing::error!(?err, "Error fully resetting the panel config.");
                 }
                 // update the padding and spacing based on appearance
-                let theme = cosmic::theme::system_preference();
+                let theme = cosmic::theme::system_light();
                 let theme = theme.cosmic();
 
                 let radius = theme.corner_radii;
@@ -589,7 +589,7 @@ impl PageInner {
                 } else {
                     _ = panel_config.set_margin(helper, 0);
                 }
-                let theme = cosmic::theme::system_preference();
+                let theme = cosmic::theme::system_light();
                 let theme = theme.cosmic();
                 let radius = theme.corner_radii;
                 let roundness: Roundness = radius.into();
@@ -621,7 +621,7 @@ impl PageInner {
             Message::ExtendToEdge(enabled) => {
                 _ = panel_config.set_expand_to_edges(helper, enabled);
 
-                let theme = cosmic::theme::system_preference();
+                let theme = cosmic::theme::system_light();
                 let theme = theme.cosmic();
                 let radius = theme.corner_radii;
                 let roundness: Roundness = radius.into();

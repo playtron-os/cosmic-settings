@@ -352,7 +352,7 @@ impl Page {
                         Self::update_panel_spacing(Density::Standard);
                     }
 
-                    app::Message::SetTheme(cosmic::theme::system_preference())
+                    app::Message::SetTheme(cosmic::theme::system_light())
                 }));
             }
 
@@ -495,7 +495,7 @@ impl Page {
                 self.drawer.reset(&self.theme_manager);
 
                 return cosmic::task::future(async move {
-                    app::Message::SetTheme(cosmic::theme::system_preference())
+                    app::Message::SetTheme(cosmic::theme::system_light())
                 });
             }
 

@@ -250,7 +250,7 @@ impl Content {
                 self.icon_handles = icon_handles;
 
                 return cosmic::task::message(app::Message::SetTheme(
-                    cosmic::theme::system_preference(),
+                    cosmic::theme::system_light(),
                 ));
             }
         }

@@ -35,8 +35,8 @@ use cosmic::{
     prelude::*,
     surface,
     widget::{
-        button, column, container, icon, id_container, nav_bar, row, scrollable, segmented_button,
-        settings, text_input,
+        column, container, icon, id_container, nav_bar, row, scrollable, segmented_button,
+        settings,
     },
 };
 #[cfg(feature = "cosmic-comp-config")]
@@ -253,7 +253,7 @@ impl cosmic::Application for SettingsApp {
         .unwrap_or(first_page_id);
 
         let task = Task::batch([
-            cosmic::command::set_theme(cosmic::theme::system_preference()),
+            cosmic::command::set_theme(cosmic::theme::system_light()),
             app.activate_page(active_id),
         ]);
         (app, task)
@@ -263,26 +263,25 @@ impl cosmic::Application for SettingsApp {
         Some(&self.nav_model)
     }
 
+    fn show_nav_bar_toggle(&self) -> bool {
+        false
+    }
+
     fn header_start(&self) -> Vec<Element<'_, Self::Message>> {
-        let mut widgets = Vec::new();
-
-        widgets.push(if self.search_active {
-            text_input::search_input("", &self.search_input)
-                .width(Length::Fixed(240.0))
-                .id(self.search_id.clone())
-                .on_clear(Message::SearchClear)
-                .on_input(Message::SearchChanged)
-                .on_submit(|_| Message::SearchSubmit)
-                .into()
-        } else {
-            icon::from_name("system-search-symbolic")
-                .apply(button::icon)
-                .padding(8)
-                .on_press(Message::SearchActivate)
-                .into()
-        });
-
-        widgets
+        vec![
+            row::with_capacity(2)
+                .align_y(iced::Alignment::Center)
+                .spacing(8)
+                .push(
+                    icon::from_name("preferences-system-symbolic")
+                        .size(18)
+                        .icon(),
+                )
+                .push(
+                    cosmic::widget::text::heading("Settings"),
+                )
+                .into(),
+        ]
     }
 
     fn on_app_exit(&mut self) -> Option<Self::Message> {
@@ -1097,7 +1096,10 @@ impl SettingsApp {
             .apply(|w| id_container(w, self.id()));
 
         column::with_capacity(2)
-            .push(self.page_container(header))
+            .push(
+                container(self.page_container(header))
+                    .padding([24, 0, 0, 0]),
+            )
             .push(view)
             .height(Length::Fill)
             .into()
@@ -1234,7 +1236,10 @@ impl SettingsApp {
             .map(Message::Page);
 
         column::with_capacity(2)
-            .push(self.page_container(page_title(&self.pages.info[self.active_page])))
+            .push(
+                container(self.page_container(page_title(&self.pages.info[self.active_page])))
+                    .padding([24, 0, 0, 0]),
+            )
             .push(page_list)
             .height(Length::Fill)
             .into()
