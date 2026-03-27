@@ -3,7 +3,7 @@
 
 Name:           %{app_name}
 Epoch:          1
-Version: 1.0.5
+Version: 1.0.2
 Release:        1%{?dist}
 Summary:        Settings - System settings application (Playtron fork)
 

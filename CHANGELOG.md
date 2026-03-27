@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/playtron-os/cosmic-settings/compare/v1.0.1...v1.0.2) (2026-03-27)
+
+
+### Bug Fixes
+
+* remove pin on cosmic-text dep ([632579f](https://github.com/playtron-os/cosmic-settings/commit/632579ff694ee86572339164f3ff39ee4f9e33ac))
+* upgrade libcosmic ([381e3ef](https://github.com/playtron-os/cosmic-settings/commit/381e3efc880e3ce70c3e406c0e6b996db4e1064b))
+
 ## [1.0.1](https://github.com/playtron-os/cosmic-settings/compare/v1.0.0...v1.0.1) (2026-02-04)
 
 
