@@ -1,7 +1,8 @@
 version: "3"
 
 vars:
-  NAME: cosmic-settings
+  NAME:
+    sh: grep 'name =' cosmic-settings/Cargo.toml | head -n 1 | cut -d'"' -f2
   VERSION:
     sh: grep '^version =' cosmic-settings/Cargo.toml | head -n 1 | cut -d'"' -f2
   HOST_OS:
@@ -26,14 +27,14 @@ tasks:
   build:debug:
     desc: Build debug build
     cmds:
-      - cargo build -p cosmic-settings {{.ARG | default ""}} --target {{.TARGET_ARCH}}
+      - cargo build {{.ARG | default ""}} --target {{.TARGET_ARCH}}
 
   build:release:
     desc: Build release build
     aliases:
       - build
     cmds:
-      - cargo build --release -p cosmic-settings --target {{.TARGET_ARCH}}
+      - cargo build --release --target {{.TARGET_ARCH}}
 
   build:all:
     desc: Build release and debug builds
@@ -44,14 +45,20 @@ tasks:
   run:
     deps:
       - build:debug
+    requires:
+      vars:
+        - name: LOG_LEVEL
+          enum: [trace, debug, info]
     vars:
       LOG_LEVEL: '{{.LOG_LEVEL | default "info"}}'
     env:
       RUST_LOG: |-
-        {{- if eq .LOG_LEVEL "debug" }}
-        error,cosmic_settings=debug
+        {{- if eq .LOG_LEVEL "trace" }}
+        error,agentos_panel=trace,icetron=trace
+        {{- else if eq .LOG_LEVEL "debug" }}
+        error,agentos_panel=debug,icetron=debug
         {{- else }}
-        error,cosmic_settings=info
+        error,agentos_panel=info
         {{- end }}
     cmds:
       - ./target/{{.TARGET_ARCH}}/debug/{{.NAME}}
@@ -63,6 +70,7 @@ tasks:
     cmds:
       - rm -rf .cache/{{.NAME}}
       - mkdir -p .cache/{{.NAME}}/usr/bin
+      # Binary
       - install -Dm0755 "target/{{.TARGET_ARCH}}/release/{{.NAME}}" ".cache/{{.NAME}}/usr/bin/{{.NAME}}"
       # Desktop files
       - cd resources/applications && find * -type f -exec install -Dm0644 '{}' "../../.cache/{{.NAME}}/usr/share/applications/{}" \;
@@ -100,7 +108,7 @@ tasks:
       - cp ./pkg/rpm/{{.NAME}}.spec ~/rpmbuild/SPECS
       - cp dist/{{.NAME}}-{{.ARCH}}.tar.gz ~/rpmbuild/SOURCES
       - rpmbuild -bb --target {{.ARCH}} ~/rpmbuild/SPECS/{{.NAME}}.spec
-      - cp ~/rpmbuild/RPMS/{{.ARCH}}/{{.NAME}}-{{.VERSION}}-*.{{.ARCH}}.rpm dist
+      - cp ~/rpmbuild/RPMS/{{.ARCH}}/{{.NAME}}-{{.VERSION}}-1.{{.ARCH}}.rpm dist
 
   dist:all:
     desc: Build all supported distributable packages
@@ -116,6 +124,7 @@ tasks:
       - sh: which npx
         msg: "Prerequisite utility 'npx' is not installed"
     cmds:
+      # The .releaserc.yaml config contains the build commands and publish config
       - npx semantic-release
 
   repo:update:

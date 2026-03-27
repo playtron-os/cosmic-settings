@@ -8,9 +8,15 @@ dist/
 .cache
 node_modules
 debian/*
+dist/*
 !debian/changelog
 !debian/control
 !debian/copyright
 !debian/rules
 !debian/source
 !debian/install
+
+dist/
+.task
+.cache
+node_modules

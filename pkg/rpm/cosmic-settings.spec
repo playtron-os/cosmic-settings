@@ -13,9 +13,6 @@ Source0:        %{name}-%{_arch}.tar.gz
 
 # No BuildRequires - binary is pre-built
 
-# Disable automatic dependency detection for Rust binaries
-AutoReqProv:    no
-
 Requires:       accountsservice
 Requires:       dbus
 Requires:       polkit
@@ -39,16 +36,16 @@ display, input, network, sound, appearance, and more.
 install -Dm0755 "usr/bin/cosmic-settings" "%{buildroot}%{_bindir}/cosmic-settings"
 
 # Desktop files
-cd usr/share/applications && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/applications/{}" \;
-cd ../../..
+cd "usr/share/applications" && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/applications/{}" \;
+cd -
 
 # Icons
-cd usr/share/icons/hicolor && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/icons/hicolor/{}" \;
-cd ../../../..
+cd "usr/share/icons/hicolor" && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/icons/hicolor/{}" \;
+cd -
 
 # Default schema (COSMIC configuration defaults)
-cd usr/share/cosmic && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/cosmic/{}" \;
-cd ../../..
+cd "usr/share/cosmic" && find * -type f -exec install -Dm0644 '{}' "%{buildroot}%{_datadir}/cosmic/{}" \;
+cd -
 
 # Metainfo
 install -Dm0644 "usr/share/metainfo/com.system76.CosmicSettings.metainfo.xml" "%{buildroot}%{_datadir}/metainfo/com.system76.CosmicSettings.metainfo.xml"
@@ -72,5 +69,5 @@ install -Dm0644 "usr/share/licenses/cosmic-settings/LICENSE.md" "%{buildroot}%{_
 %{_datadir}/polkit-1/rules.d/cosmic-settings.rules
 
 %changelog
-* Thu Mar 27 2026 Playtron <dev@playtron.one> - 1.0.5-1
-- Migrate to Taskfile-based RPM build pipeline
+* Tue Feb 03 2026 Playtron <dev@playtron.one> - 1.0.5-1
+- Initial RPM package for Playtron fork
