@@ -51,9 +51,6 @@ inherits = "release"
 lto = "off"
 debug = true
 
-[patch.'https://github.com/pop-os/cosmic-text']
-cosmic-text = { git = "https://github.com/pop-os/cosmic-text//", rev = "f31b9d8" }
-
 # [patch.'https://github.com/pop-os/cosmic-protocols']
 # cosmic-protocols = { git = "https://github.com/pop-os/cosmic-protocols//", rev = "d0e95be" }
 # cosmic-client-toolkit = { git = "https://github.com/pop-os/cosmic-protocols//", rev = "d0e95be" }
@@ -79,8 +76,8 @@ iced_wgpu = { git = "https://github.com/playtron-os/libcosmic" }
 iced_graphics = { git = "https://github.com/playtron-os/libcosmic" }
 
 # Use local cosmic-comp-config to unify cosmic-config version (upstream pins to stale libcosmic rev)
-[patch.'https://github.com/playtron-os/cosmic-comp']
-cosmic-comp-config = { path = "../cosmic-epoch/cosmic-comp/cosmic-comp-config" }
+# [patch.'https://github.com/playtron-os/cosmic-comp']
+# cosmic-comp-config = { path = "../cosmic-epoch/cosmic-comp/cosmic-comp-config" }
 
 # For local development (uncomment to use ../libcosmic instead of git)
 # [patch.'https://github.com/playtron-os/libcosmic']
