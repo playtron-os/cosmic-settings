@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/playtron-os/cosmic-settings/compare/v1.0.2...v1.0.3) (2026-03-31)
+
+
+### Bug Fixes
+
+* remove cosmic from app name ([c874659](https://github.com/playtron-os/cosmic-settings/commit/c874659b849283bf3fe7dd41100a7bdc3ab86e25))
+
 ## [1.0.2](https://github.com/playtron-os/cosmic-settings/compare/v1.0.1...v1.0.2) (2026-03-27)
 
 
