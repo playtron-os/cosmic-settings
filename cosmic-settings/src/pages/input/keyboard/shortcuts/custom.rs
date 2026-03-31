@@ -517,7 +517,7 @@ impl page::Page<crate::pages::Message> for Page {
 
             let dialog = widget::dialog()
                 .title(fl!("replace-shortcut-dialog"))
-                .icon(icon::from_name("dialog-warning").size(64))
+                .icon(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ERROR_WARNING_LINE)).size(64))
                 .body(fl!(
                     "replace-shortcut-dialog",
                     "desc",

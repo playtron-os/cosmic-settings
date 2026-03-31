@@ -194,7 +194,7 @@ impl page::Page<crate::pages::Message> for Page {
         &self,
         sections: &mut SlotMap<section::Entity, Section<crate::pages::Message>>,
     ) -> Option<page::Content> {
-        Some(vec![sections.insert(user_list())])
+        Some(vec![sections.insert(crate::widget::coming_soon_section())])
     }
 
     fn info(&self) -> page::Info {
@@ -887,12 +887,11 @@ fn user_list() -> Section<crate::pages::Message> {
                             .spacing(space_xxs)
                             .into(),
                         widget::horizontal_space().width(Length::Fill).into(),
-                        icon::from_name(if expanded {
-                            "go-up-symbolic"
+                        icon::icon(icon::from_svg_bytes(if expanded {
+                            icetron_assets::icons::system::ARROW_UP_S_LINE
                         } else {
-                            "go-down-symbolic"
-                        })
-                        .icon()
+                            icetron_assets::icons::system::ARROW_DOWN_S_LINE
+                        }))
                         .size(16)
                         .into(),
                     ]);

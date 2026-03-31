@@ -6,9 +6,6 @@ pub mod default_apps;
 
 pub mod startup_apps;
 
-#[cfg(feature = "page-legacy-applications")]
-pub mod legacy_applications;
-
 use cosmic_settings_page as page;
 
 #[derive(Default)]
@@ -37,11 +34,6 @@ impl page::AutoBind<crate::pages::Message> for Page {
         }
 
         page = page.sub_page::<startup_apps::Page>();
-
-        #[cfg(feature = "page-legacy-applications")]
-        {
-            page = page.sub_page::<legacy_applications::Page>();
-        }
 
         page
     }

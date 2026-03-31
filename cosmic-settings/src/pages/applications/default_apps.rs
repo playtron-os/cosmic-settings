@@ -85,6 +85,7 @@ pub struct AppMeta {
 
 #[derive(Clone, Debug, Default)]
 pub struct Page {
+    entity: page::Entity,
     on_enter_handle: Option<cosmic::iced::task::Handle>,
     mime_apps: Option<CachedMimeApps>,
     shortcuts_config: Option<cosmic_config::Config>,
@@ -93,11 +94,15 @@ pub struct Page {
 impl page::AutoBind<crate::pages::Message> for Page {}
 
 impl page::Page<crate::pages::Message> for Page {
+    fn set_id(&mut self, entity: page::Entity) {
+        self.entity = entity;
+    }
+
     fn content(
         &self,
         sections: &mut SlotMap<section::Entity, Section<crate::pages::Message>>,
     ) -> Option<cosmic_settings_page::Content> {
-        Some(vec![sections.insert(apps())])
+        Some(vec![sections.insert(crate::widget::coming_soon_section())])
     }
 
     fn info(&self) -> page::Info {
@@ -613,7 +618,7 @@ async fn load_defaults(assocs: &BTreeMap<Arc<str>, Arc<App>>, for_mimes: &[&str]
         icons.push(if app.icon.starts_with('/') {
             icon::from_path(PathBuf::from(app.icon.as_ref()))
         } else {
-            icon::from_name(app.icon.as_ref()).size(20).handle()
+            crate::icon_helper::named_handle(app.icon.as_ref(), 20)
         });
     }
 
@@ -704,7 +709,7 @@ async fn load_terminal_apps(assocs: &BTreeMap<Arc<str>, Arc<App>>) -> AppMeta {
         icons.push(if app.icon.starts_with('/') {
             icon::from_path(PathBuf::from(app.icon.as_ref()))
         } else {
-            icon::from_name(app.icon.as_ref()).size(20).handle()
+            crate::icon_helper::named_handle(app.icon.as_ref(), 20)
         });
     }
 

@@ -1459,7 +1459,7 @@ name = "cosmic-bg-config"
 version = "1.0.3"
 source = "git+https://github.com/pop-os/cosmic-bg#644993abd84bf04d7b3f2211e3656002c2a6f00b"
 dependencies = [
- "cosmic-config 1.0.0 (git+https://github.com/playtron-os/libcosmic)",
+ "cosmic-config",
  "derive_setters",
  "image",
  "serde",
@@ -1484,7 +1484,7 @@ name = "cosmic-comp-config"
 version = "1.0.0"
 source = "git+https://github.com/playtron-os/cosmic-comp#3af94af4efb7be1700bbfb184864eadaa040eb6f"
 dependencies = [
- "cosmic-config 1.0.0 (git+https://github.com/playtron-os/libcosmic.git?rev=05a14e801)",
+ "cosmic-config",
  "input",
  "ron 0.11.0",
  "serde",
@@ -1494,31 +1494,13 @@ dependencies = [
 [[package]]
 name = "cosmic-config"
 version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic.git?rev=05a14e801#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "atomicwrites",
- "cosmic-config-derive 1.0.0 (git+https://github.com/playtron-os/libcosmic.git?rev=05a14e801)",
- "dirs",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic.git?rev=05a14e801)",
- "known-folders",
- "notify",
- "ron 0.12.0",
- "serde",
- "tracing",
- "xdg",
-]
-
-[[package]]
-name = "cosmic-config"
-version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
-dependencies = [
- "atomicwrites",
- "cosmic-config-derive 1.0.0 (git+https://github.com/playtron-os/libcosmic)",
+ "cosmic-config-derive",
  "cosmic-settings-daemon",
  "dirs",
  "futures-util",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_futures",
  "known-folders",
  "notify",
  "ron 0.12.0",
@@ -1532,16 +1514,6 @@ dependencies = [
 [[package]]
 name = "cosmic-config-derive"
 version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic.git?rev=05a14e801#05a14e80189bff1018c15a7ee11732d2c11f095f"
-dependencies = [
- "quote",
- "syn 2.0.117",
-]
-
-[[package]]
-name = "cosmic-config-derive"
-version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "quote",
  "syn 2.0.117",
@@ -1587,7 +1559,7 @@ name = "cosmic-idle-config"
 version = "0.1.0"
 source = "git+https://github.com/pop-os/cosmic-idle#c95d066b5b640509a6369634b669ca60dc50e168"
 dependencies = [
- "cosmic-config 1.0.0 (git+https://github.com/playtron-os/libcosmic)",
+ "cosmic-config",
  "serde",
 ]
 
@@ -1608,7 +1580,7 @@ version = "0.1.0"
 source = "git+https://github.com/pop-os/cosmic-panel#d518c7d25ef96f1a9696aa8cce008656bf66ece4"
 dependencies = [
  "anyhow",
- "cosmic-config 1.0.0 (git+https://github.com/playtron-os/libcosmic)",
+ "cosmic-config",
  "serde",
  "smithay-client-toolkit 0.20.0",
  "tracing",
@@ -1694,7 +1666,7 @@ dependencies = [
  "color-eyre",
  "cosmic-bg-config",
  "cosmic-comp-config",
- "cosmic-config 1.0.0 (git+https://github.com/playtron-os/libcosmic)",
+ "cosmic-config",
  "cosmic-dbus-networkmanager",
  "cosmic-idle-config",
  "cosmic-mime-apps",
@@ -1702,8 +1674,6 @@ dependencies = [
  "cosmic-protocols 0.2.0",
  "cosmic-randr",
  "cosmic-randr-shell",
- "cosmic-settings-a11y-manager-subscription",
- "cosmic-settings-accessibility-subscription",
  "cosmic-settings-airplane-mode-subscription",
  "cosmic-settings-bluetooth-subscription",
  "cosmic-settings-config",
@@ -1711,7 +1681,6 @@ dependencies = [
  "cosmic-settings-network-manager-subscription",
  "cosmic-settings-page",
  "cosmic-settings-sound-subscription",
- "cosmic-settings-upower-subscription",
  "cosmic-settings-wallpaper",
  "derive_setters",
  "dirs",
@@ -1724,6 +1693,7 @@ dependencies = [
  "hostname1-zbus",
  "i18n-embed",
  "i18n-embed-fl",
+ "icetron_assets",
  "icu",
  "image",
  "indexmap 2.13.0",
@@ -1767,7 +1737,7 @@ name = "cosmic-settings-a11y-manager-subscription"
 version = "1.0.2"
 dependencies = [
  "cosmic-protocols 0.2.0",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_futures",
  "num-derive",
  "num-traits",
  "smithay-client-toolkit 0.20.0",
@@ -1781,7 +1751,7 @@ version = "1.0.2"
 dependencies = [
  "cosmic-dbus-a11y",
  "futures",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_futures",
  "tokio",
  "tracing",
  "zbus 5.14.0",
@@ -1792,7 +1762,7 @@ name = "cosmic-settings-airplane-mode-subscription"
 version = "1.0.2"
 dependencies = [
  "futures",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_futures",
  "log",
  "rustix 1.1.4",
  "tokio",
@@ -1804,7 +1774,7 @@ version = "1.0.2"
 dependencies = [
  "bluez-zbus",
  "futures",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_futures",
  "tokio",
  "tracing",
  "zbus 5.14.0",
@@ -1815,7 +1785,7 @@ name = "cosmic-settings-config"
 version = "0.1.0"
 source = "git+https://github.com/pop-os/cosmic-settings-daemon#e37160f14d1e7ee428f973cd2848b4e95f83dfe1"
 dependencies = [
- "cosmic-config 1.0.0 (git+https://github.com/playtron-os/libcosmic)",
+ "cosmic-config",
  "ron 0.11.0",
  "serde",
  "serde_with",
@@ -1836,7 +1806,7 @@ name = "cosmic-settings-daemon-config"
 version = "0.1.0"
 source = "git+https://github.com/pop-os/cosmic-settings-daemon#e37160f14d1e7ee428f973cd2848b4e95f83dfe1"
 dependencies = [
- "cosmic-config 1.0.0 (git+https://github.com/playtron-os/libcosmic)",
+ "cosmic-config",
  "serde",
 ]
 
@@ -1845,7 +1815,7 @@ name = "cosmic-settings-daemon-subscription"
 version = "1.0.2"
 dependencies = [
  "futures",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_futures",
  "log",
  "tokio",
  "tokio-stream",
@@ -1859,7 +1829,7 @@ dependencies = [
  "bitflags 2.11.0",
  "cosmic-dbus-networkmanager",
  "futures",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_futures",
  "itertools 0.14.0",
  "nm-secret-agent-manager",
  "secret-service",
@@ -1902,7 +1872,7 @@ name = "cosmic-settings-upower-subscription"
 version = "1.0.2"
 dependencies = [
  "futures",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_futures",
  "log",
  "tokio",
  "tokio-stream",
@@ -1955,10 +1925,9 @@ dependencies = [
 [[package]]
 name = "cosmic-theme"
 version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "almost",
- "cosmic-config 1.0.0 (git+https://github.com/playtron-os/libcosmic)",
+ "cosmic-config",
  "csscolorparser",
  "dirs",
  "palette",
@@ -3404,12 +3373,11 @@ dependencies = [
 [[package]]
 name = "iced"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "dnd",
  "iced_accessibility",
- "iced_core 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_core",
+ "iced_futures",
  "iced_renderer",
  "iced_widget",
  "iced_winit",
@@ -3422,7 +3390,6 @@ dependencies = [
 [[package]]
 name = "iced_accessibility"
 version = "0.1.0"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "accesskit",
  "accesskit_winit",
@@ -3431,29 +3398,6 @@ dependencies = [
 [[package]]
 name = "iced_core"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic.git?rev=05a14e801#05a14e80189bff1018c15a7ee11732d2c11f095f"
-dependencies = [
- "bitflags 2.11.0",
- "bytes",
- "dnd",
- "glam",
- "log",
- "mime 0.1.0",
- "num-traits",
- "once_cell",
- "palette",
- "raw-window-handle",
- "rustc-hash 2.1.1",
- "smol_str 0.2.2",
- "thiserror 1.0.69",
- "web-time",
- "window_clipboard",
-]
-
-[[package]]
-name = "iced_core"
-version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "bitflags 2.11.0",
  "bytes",
@@ -3478,23 +3422,9 @@ dependencies = [
 [[package]]
 name = "iced_futures"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic.git?rev=05a14e801#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "futures",
- "iced_core 0.14.0-dev (git+https://github.com/playtron-os/libcosmic.git?rev=05a14e801)",
- "log",
- "rustc-hash 2.1.1",
- "wasm-bindgen-futures",
- "wasm-timer",
-]
-
-[[package]]
-name = "iced_futures"
-version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
-dependencies = [
- "futures",
- "iced_core 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_core",
  "log",
  "rustc-hash 2.1.1",
  "tokio",
@@ -3517,14 +3447,13 @@ dependencies = [
 [[package]]
 name = "iced_graphics"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "bitflags 2.11.0",
  "bytemuck",
  "cosmic-text",
  "half",
- "iced_core 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_core",
+ "iced_futures",
  "image",
  "kamadak-exif",
  "log",
@@ -3539,7 +3468,6 @@ dependencies = [
 [[package]]
 name = "iced_renderer"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "iced_graphics",
  "iced_tiny_skia",
@@ -3551,14 +3479,13 @@ dependencies = [
 [[package]]
 name = "iced_runtime"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "bytes",
  "cosmic-client-toolkit",
  "dnd",
  "iced_accessibility",
- "iced_core 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_core",
+ "iced_futures",
  "raw-window-handle",
  "thiserror 1.0.69",
  "window_clipboard",
@@ -3567,7 +3494,6 @@ dependencies = [
 [[package]]
 name = "iced_tiny_skia"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "bytemuck",
  "cosmic-text",
@@ -3583,7 +3509,6 @@ dependencies = [
 [[package]]
 name = "iced_wgpu"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "as-raw-xcb-connection",
  "bitflags 2.11.0",
@@ -3614,7 +3539,6 @@ dependencies = [
 [[package]]
 name = "iced_widget"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "cosmic-client-toolkit",
  "dnd",
@@ -3635,12 +3559,11 @@ dependencies = [
 [[package]]
 name = "iced_winit"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "cosmic-client-toolkit",
  "dnd",
  "iced_accessibility",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_futures",
  "iced_graphics",
  "iced_runtime",
  "log",
@@ -3665,7 +3588,7 @@ dependencies = [
 [[package]]
 name = "icetron_assets"
 version = "0.1.0"
-source = "git+ssh://git@bitbucket.org/playtron-one/icetron.git?rev=a1bf042#a1bf0429ca070e78c2069fde5dde625f46e18227"
+source = "git+ssh://git@bitbucket.org/playtron-one/icetron.git?rev=6db4fa7#6db4fa7823eecb615b735d21a5f77000202564c1"
 
 [[package]]
 name = "icu"
@@ -4712,14 +4635,13 @@ checksum = "b5b646652bf6661599e1da8901b3b9522896f01e736bad5f723fe7a3a27f899d"
 [[package]]
 name = "libcosmic"
 version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic#05a14e80189bff1018c15a7ee11732d2c11f095f"
 dependencies = [
  "apply",
  "ashpd 0.12.3",
  "auto_enums",
  "chrono",
  "cosmic-client-toolkit",
- "cosmic-config 1.0.0 (git+https://github.com/playtron-os/libcosmic)",
+ "cosmic-config",
  "cosmic-freedesktop-icons",
  "cosmic-settings-config",
  "cosmic-settings-daemon",
@@ -4732,8 +4654,8 @@ dependencies = [
  "i18n-embed-fl",
  "iced",
  "iced_accessibility",
- "iced_core 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
- "iced_futures 0.14.0-dev (git+https://github.com/playtron-os/libcosmic)",
+ "iced_core",
+ "iced_futures",
  "iced_renderer",
  "iced_runtime",
  "iced_tiny_skia",

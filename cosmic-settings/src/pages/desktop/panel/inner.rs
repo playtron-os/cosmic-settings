@@ -287,7 +287,7 @@ pub(crate) fn configuration<P: page::Page<crate::pages::Message> + PanelPage>(
             {
                 let control = row::with_children(vec![
                     horizontal_space().into(),
-                    icon::from_name("go-next-symbolic").size(16).into(),
+                    icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(16).into(),
                 ]);
 
                 settings.add(

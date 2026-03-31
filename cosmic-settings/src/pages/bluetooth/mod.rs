@@ -834,7 +834,7 @@ fn connected_devices() -> Section<crate::pages::Message> {
                         .is_some_and(|p| path.as_str() == p.as_str())
                     {
                         widget::popover(
-                            widget::button::icon(widget::icon::from_name("view-more-symbolic"))
+                            widget::button::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::MORE_LINE))
                                 .on_press(Message::PopupDevice(None)),
                         )
                         .position(widget::popover::Position::Bottom)
@@ -858,13 +858,13 @@ fn connected_devices() -> Section<crate::pages::Message> {
                         )
                         .into()
                     } else {
-                        widget::button::icon(widget::icon::from_name("view-more-symbolic"))
+                        widget::button::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::MORE_LINE))
                             .on_press(Message::PopupDevice(Some(path.clone())))
                             .into()
                     };
 
                     Some(settings::item_row(vec![
-                        widget::icon::from_name(device.icon).size(16).into(),
+                        crate::icon_helper::named_icon(device.icon, 16).into(),
                         if let Some(battery) = &device.battery {
                             widget::column::with_capacity(2)
                                 .push(text::body(device.alias_or_addr()))
@@ -934,7 +934,7 @@ fn available_devices() -> Section<crate::pages::Message> {
                     }
 
                     let mut items = vec![
-                        widget::icon::from_name(device.icon).size(16).into(),
+                        crate::icon_helper::named_icon(device.icon, 16).into(),
                         text(device.alias_or_addr()).wrapping(Wrapping::Word).into(),
                         widget::horizontal_space().into(),
                     ];
@@ -978,7 +978,7 @@ fn multiple_adapter() -> Section<crate::pages::Message> {
                 .iter()
                 .map(|(path, adapter)| {
                     let mut items = vec![
-                        widget::icon::from_name("bluetooth-symbolic")
+                        widget::icon::icon(widget::icon::from_svg_bytes(icetron_assets::icons::device::BLUETOOTH_LINE))
                             .size(20)
                             .into(),
                         widget::horizontal_space()
@@ -986,7 +986,7 @@ fn multiple_adapter() -> Section<crate::pages::Message> {
                             .into(),
                         text(&adapter.alias).wrapping(Wrapping::Word).into(),
                         widget::horizontal_space().into(),
-                        widget::icon::from_name("go-next-symbolic").into(),
+                        widget::icon::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).into(),
                     ];
                     if page.model.adapter_connected(path) {
                         items.insert(

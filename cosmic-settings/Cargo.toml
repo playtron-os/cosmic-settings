@@ -26,12 +26,9 @@ cosmic-randr-shell.workspace = true
 cosmic-randr = { workspace = true, optional = true }
 cosmic-settings-config = { git = "https://github.com/pop-os/cosmic-settings-daemon", optional = true }
 cosmic-settings-page = { path = "../page" }
-cosmic-settings-accessibility-subscription = { path = "../subscriptions/accessibility", optional = true }
-cosmic-settings-a11y-manager-subscription = { path = "../subscriptions/a11y-manager", optional = true }
 cosmic-settings-airplane-mode-subscription = { path = "../subscriptions/airplane-mode", optional = true }
 cosmic-settings-bluetooth-subscription = { path = "../subscriptions/bluetooth", optional = true }
 cosmic-settings-network-manager-subscription = { path = "../subscriptions/network-manager", optional = true }
-cosmic-settings-upower-subscription = { path = "../subscriptions/upower", optional = true }
 cosmic-settings-sound-subscription = { path = "../subscriptions/sound", optional = true, features = [
     "auto-profile-init",
 ] }
@@ -78,6 +75,7 @@ udev = { version = "0.9.3", optional = true }
 upower_dbus = { git = "https://github.com/pop-os/dbus-settings-bindings", optional = true }
 bluez-zbus = { git = "https://github.com/pop-os/dbus-settings-bindings", optional = true }
 url = "2.5.8"
+icetron_assets = { git = "ssh://git@bitbucket.org/playtron-one/icetron.git", rev = "6db4fa7" }
 xkb-data = "0.2.1"
 xkeysym = { version = "0.2.1", optional = true }
 zbus = { version = "5.13.1", default-features = false, features = [
@@ -113,16 +111,13 @@ gettext = ["dep:gettext-rs"]
 # Default features for Linux
 linux = [
     "cosmic-comp-config",
-    "page-accessibility",
     "page-about",
     "page-bluetooth",
     "page-date",
     "page-default-apps",
     "page-display",
     "page-input",
-    "page-legacy-applications",
     "page-networking",
-    "page-power",
     "page-region",
     "page-sound",
     "page-users",
@@ -135,15 +130,6 @@ linux = [
 page-desktop = []
 
 # Pages
-page-accessibility = [
-    "cosmic-comp-config",
-    "dep:sctk",
-    "dep:cosmic-protocols",
-    "dep:cosmic-settings-config",
-    "dep:cosmic-settings-daemon-config",
-    "dep:cosmic-settings-accessibility-subscription",
-    "dep:cosmic-settings-a11y-manager-subscription",
-]
 page-about = ["dep:hostname1-zbus", "dep:sysinfo", "dep:zbus"]
 page-bluetooth = [
     "dep:cosmic-settings-bluetooth-subscription",
@@ -161,7 +147,6 @@ page-input = [
     "dep:xkeysym",
     "wayland",
 ]
-page-legacy-applications = ["cosmic-comp-config", "dep:cosmic-randr"]
 page-networking = [
     "dep:cosmic-settings-network-manager-subscription",
     "xdg-portal",
@@ -169,7 +154,6 @@ page-networking = [
     "dep:nm-secret-agent-manager",
     "dep:zbus",
 ]
-page-power = ["dep:upower_dbus", "dep:zbus"]
 page-region = ["gettext", "dep:locales-rs", "dep:locale1", "dep:zbus"]
 page-sound = ["dep:cosmic-settings-sound-subscription"]
 page-users = ["xdg-portal", "dep:accounts-zbus", "dep:zbus", "dep:zbus_polkit"]

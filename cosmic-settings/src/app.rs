@@ -3,8 +3,6 @@
 
 use crate::PageCommands;
 use crate::config::Config;
-#[cfg(feature = "page-accessibility")]
-use crate::pages::accessibility;
 use crate::pages::applications;
 #[cfg(feature = "page-bluetooth")]
 use crate::pages::bluetooth;
@@ -15,8 +13,6 @@ use crate::pages::display;
 use crate::pages::input;
 #[cfg(feature = "page-networking")]
 use crate::pages::networking;
-#[cfg(feature = "page-power")]
-use crate::pages::power;
 #[cfg(feature = "page-sound")]
 use crate::pages::sound;
 use crate::pages::{self, system, time};
@@ -76,12 +72,6 @@ pub struct SettingsApp {
 impl SettingsApp {
     fn subtask_to_page(&self, cmd: &PageCommands) -> Option<Entity> {
         match cmd {
-            #[cfg(feature = "page-accessibility")]
-            PageCommands::Accessibility => self.pages.page_id::<accessibility::Page>(),
-            #[cfg(feature = "page-accessibility")]
-            PageCommands::AccessibilityMagnifier => {
-                self.pages.page_id::<accessibility::magnifier::Page>()
-            }
             #[cfg(feature = "page-about")]
             PageCommands::About => self.pages.page_id::<system::about::Page>(),
             PageCommands::Appearance { command: _ } => {
@@ -106,10 +96,6 @@ impl SettingsApp {
             PageCommands::Input => self.pages.page_id::<input::Page>(),
             #[cfg(feature = "page-input")]
             PageCommands::Keyboard => self.pages.page_id::<input::keyboard::Page>(),
-            #[cfg(feature = "page-legacy-applications")]
-            PageCommands::LegacyApplications => self
-                .pages
-                .page_id::<applications::legacy_applications::Page>(),
             #[cfg(feature = "page-input")]
             PageCommands::Mouse => self.pages.page_id::<input::mouse::Page>(),
             #[cfg(feature = "page-networking")]
@@ -120,8 +106,6 @@ impl SettingsApp {
             PageCommands::PanelApplet => {
                 self.pages.page_id::<desktop::panel::applets_inner::Page>()
             }
-            #[cfg(feature = "page-power")]
-            PageCommands::Power => self.pages.page_id::<power::Page>(),
             #[cfg(feature = "page-region")]
             PageCommands::RegionLanguage => self.pages.page_id::<time::region::Page>(),
             #[cfg(feature = "page-sound")]
@@ -134,15 +118,13 @@ impl SettingsApp {
             #[cfg(feature = "page-users")]
             PageCommands::Users => self.pages.page_id::<system::users::Page>(),
             #[cfg(feature = "page-networking")]
-            PageCommands::Vpn => self.pages.page_id::<networking::vpn::Page>(),
-            PageCommands::Wallpaper => self.pages.page_id::<desktop::wallpaper::Page>(),
+            PageCommands::Wired => self.pages.page_id::<networking::wired::Page>(),
             #[cfg(feature = "page-window-management")]
             PageCommands::WindowManagement => {
                 self.pages.page_id::<desktop::window_management::Page>()
             }
-            #[cfg(feature = "page-networking")]
-            PageCommands::Wired => self.pages.page_id::<networking::wired::Page>(),
-            #[cfg(feature = "page-networking")]
+            PageCommands::Wallpaper => self.pages.page_id::<desktop::wallpaper::Page>(),
+            #[cfg(feature = "page-window-management")]
             PageCommands::Wireless => self.pages.page_id::<networking::wifi::Page>(),
             #[cfg(feature = "page-workspaces")]
             PageCommands::Workspaces => self.pages.page_id::<desktop::workspaces::Page>(),
@@ -220,16 +202,12 @@ impl cosmic::Application for SettingsApp {
         app.insert_page::<networking::Page>();
         #[cfg(feature = "page-bluetooth")]
         app.insert_page::<bluetooth::Page>();
-        #[cfg(feature = "page-accessibility")]
-        app.insert_page::<accessibility::Page>();
         #[cfg(feature = "page-desktop")]
         app.insert_page::<desktop::Page>();
         #[cfg(feature = "page-display")]
         app.insert_page::<display::Page>();
         #[cfg(feature = "page-sound")]
         app.insert_page::<sound::Page>();
-        #[cfg(feature = "page-power")]
-        app.insert_page::<power::Page>();
         #[cfg(feature = "page-input")]
         app.insert_page::<input::Page>();
         app.insert_page::<applications::Page>();
@@ -273,12 +251,11 @@ impl cosmic::Application for SettingsApp {
                 .align_y(iced::Alignment::Center)
                 .spacing(8)
                 .push(
-                    icon::from_name("preferences-system-symbolic")
-                        .size(18)
-                        .icon(),
+                    icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::SETTINGS_3_LINE))
+                        .size(18),
                 )
                 .push(
-                    cosmic::widget::text::heading("Settings"),
+                    cosmic::widget::text::heading(fl!("settings")),
                 )
                 .into(),
         ]
@@ -412,30 +389,9 @@ impl cosmic::Application for SettingsApp {
             Message::PageMessage(message) => match message {
                 crate::pages::Message::CloseContextDrawer => return self.close_context_drawer(),
 
-                #[cfg(feature = "page-accessibility")]
-                crate::pages::Message::Accessibility(message) => {
-                    if let Some(page) = self.pages.page_mut::<accessibility::Page>() {
-                        return page.update(message).map(Into::into);
-                    }
-                }
                 #[cfg(feature = "page-about")]
                 crate::pages::Message::About(message) => {
                     if let Some(page) = self.pages.page_mut::<system::about::Page>() {
-                        return page.update(message).map(Into::into);
-                    }
-                }
-                #[cfg(feature = "page-accessibility")]
-                crate::pages::Message::AccessibilityMagnifier(message) => {
-                    if let Some(page) = self.pages.page_mut::<accessibility::magnifier::Page>() {
-                        return page.update(self.active_page, message).map(Into::into);
-                    }
-                }
-                #[cfg(feature = "page-input")]
-                crate::pages::Message::AccessibilityShortcuts(message) => {
-                    if let Some(page) = self
-                        .pages
-                        .page_mut::<input::keyboard::shortcuts::accessibility::Page>()
-                    {
                         return page.update(message).map(Into::into);
                     }
                 }
@@ -533,16 +489,6 @@ impl cosmic::Application for SettingsApp {
                     if let Some(page) = self
                         .pages
                         .page_mut::<input::keyboard::shortcuts::custom::Page>()
-                    {
-                        return page.update(message).map(Into::into);
-                    }
-                }
-
-                #[cfg(feature = "page-legacy-applications")]
-                crate::pages::Message::LegacyApplications(message) => {
-                    if let Some(page) = self
-                        .pages
-                        .page_mut::<applications::legacy_applications::Page>()
                     {
                         return page.update(message).map(Into::into);
                     }
@@ -657,20 +603,6 @@ impl cosmic::Application for SettingsApp {
                 #[cfg(feature = "wayland")]
                 crate::pages::Message::PanelApplet(message) => {
                     if let Some(page) = self.pages.page_mut::<applets_inner::Page>() {
-                        return page.update(message).map(Into::into);
-                    }
-                }
-
-                #[cfg(feature = "page-power")]
-                crate::pages::Message::Power(message) => {
-                    if let Some(page) = self.pages.page_mut::<power::Page>() {
-                        return page.update(message).map(Into::into);
-                    }
-                }
-
-                #[cfg(feature = "page-networking")]
-                crate::pages::Message::Vpn(message) => {
-                    if let Some(page) = self.pages.page_mut::<networking::vpn::Page>() {
                         return page.update(message).map(Into::into);
                     }
                 }
@@ -808,19 +740,6 @@ impl cosmic::Application for SettingsApp {
                     );
                 }
 
-                #[cfg(feature = "page-accessibility")]
-                if let Some(page) = self.pages.page_mut::<accessibility::magnifier::Page>() {
-                    tasks.push(
-                        page.update(
-                            self.active_page,
-                            crate::pages::accessibility::magnifier::Message::CompConfigUpdate(
-                                comp_config.clone(),
-                            ),
-                        )
-                        .map(Into::into),
-                    );
-                }
-
                 return Task::batch(tasks);
             }
 
@@ -929,20 +848,9 @@ impl cosmic::Application for SettingsApp {
     fn system_theme_update(
         &mut self,
         _keys: &[&'static str],
-        new_theme: &cosmic::cosmic_theme::Theme,
+        _new_theme: &cosmic::cosmic_theme::Theme,
     ) -> Task<Self::Message> {
-        let mut tasks = Vec::new();
-        #[cfg(feature = "page-accessibility")]
-        if let Some(page) = self.pages.page_mut::<accessibility::Page>() {
-            tasks.push(
-                page.update(accessibility::Message::SystemTheme(Box::new(
-                    new_theme.clone(),
-                )))
-                .map(Into::into),
-            );
-        }
-
-        Task::batch(tasks)
+        Task::none()
     }
 }
 
@@ -1039,7 +947,7 @@ impl SettingsApp {
         self.nav_model
             .insert()
             .text(page.title.clone())
-            .icon(icon::from_name(&*page.icon_name))
+            .icon(crate::icon_helper::named_icon(&*page.icon_name, 16))
             .data(id)
             .with_id(|nav_id| self.pages.data_set(id, nav_id))
     }

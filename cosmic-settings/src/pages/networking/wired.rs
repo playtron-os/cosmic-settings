@@ -129,7 +129,7 @@ impl page::Page<crate::pages::Message> for Page {
 
                 widget::dialog()
                     .title(fl!("remove-connection-dialog"))
-                    .icon(icon::from_name("dialog-information").size(64))
+                    .icon(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::INFORMATION_LINE)).size(64))
                     .body(fl!("remove-connection-dialog", "wired-description"))
                     .primary_action(primary_action)
                     .secondary_action(secondary_action)
@@ -142,7 +142,7 @@ impl page::Page<crate::pages::Message> for Page {
     fn header_view(&self) -> Option<cosmic::Element<'_, crate::pages::Message>> {
         Some(
             widget::button::standard(fl!("add-network", "profile"))
-                .trailing_icon(icon::from_name("window-pop-out-symbolic"))
+                .trailing_icon(icon::from_svg_bytes(icetron_assets::icons::system::EXTERNAL_LINK_LINE))
                 .on_press(Message::AddNetwork)
                 .apply(widget::container)
                 .width(Length::Fill)
@@ -494,6 +494,13 @@ impl Page {
 
                     let connect: Element<'_, Message> = if let Some(msg) = connect_msg {
                         widget::button::text(connect_txt).on_press(msg).into()
+                    } else if is_connected {
+                        widget::text::body(connect_txt)
+                            .class(cosmic::theme::Text::Color(crate::theme::STATE_DEFAULT))
+                            .apply(widget::container)
+                            .padding([4, 12])
+                            .class(crate::theme::connected_chip())
+                            .into()
                     } else {
                         widget::text::body(connect_txt)
                             .align_y(Alignment::Center)
@@ -501,7 +508,7 @@ impl Page {
                     };
 
                     let view_more_button =
-                        widget::button::icon(widget::icon::from_name("view-more-symbolic"));
+                        widget::button::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::MORE_LINE));
 
                     let view_more: Option<Element<_>> = if self
                         .view_more_popup

@@ -107,7 +107,7 @@ impl page::Page<crate::pages::Message> for Page {
         &self,
         sections: &mut SlotMap<Entity, Section<crate::pages::Message>>,
     ) -> Option<Content> {
-        Some(vec![sections.insert(apps())])
+        Some(vec![sections.insert(crate::widget::coming_soon_section())])
     }
 
     fn context_drawer(&self) -> Option<ContextDrawer<'_, crate::pages::Message>> {
@@ -171,7 +171,7 @@ impl page::Page<crate::pages::Message> for Page {
                         "remove-dialog-title",
                         name = app_to_remove.name(&cached_startup_apps.locales)
                     ))
-                    .icon(icon::from_name("dialog-warning").size(64))
+                    .icon(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ERROR_WARNING_LINE)).size(64))
                     .body(fl!("startup-apps", "remove-dialog-description"))
                     .primary_action(
                         button::suggested(fl!("remove")).on_press(
@@ -340,7 +340,7 @@ impl Page {
                         .align_y(Alignment::Center);
 
                     row = row.push(
-                        icon::from_name(app.icon().unwrap_or("application-default")).size(32),
+                        crate::icon_helper::named_icon(app.icon().unwrap_or("application-default"), 32),
                     );
 
                     if let Some(name) = app.name(&startup_apps.locales) {
@@ -390,8 +390,7 @@ fn apps() -> Section<crate::pages::Message> {
                                     .align_y(Alignment::Center);
 
                                 row = row.push(
-                                    icon::from_name(app.icon().unwrap_or("application-default"))
-                                        .size(32),
+                                    crate::icon_helper::named_icon(app.icon().unwrap_or("application-default"), 32),
                                 );
 
                                 if let Some(name) = app.name(&startup_apps.locales) {
@@ -401,7 +400,7 @@ fn apps() -> Section<crate::pages::Message> {
                                 }
 
                                 row = row.push(
-                                    button::icon(icon::from_name("edit-delete-symbolic"))
+                                    button::icon(icon::from_svg_bytes(icetron_assets::icons::system::DELETE_BIN_LINE))
                                         .extra_small()
                                         .on_press(
                                             Message::RemoveStartupApplication(

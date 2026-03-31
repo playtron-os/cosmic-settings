@@ -3,8 +3,6 @@
 
 use cosmic_settings_page::Entity;
 
-#[cfg(feature = "page-accessibility")]
-pub mod accessibility;
 pub mod applications;
 #[cfg(feature = "page-bluetooth")]
 pub mod bluetooth;
@@ -15,8 +13,6 @@ pub mod display;
 pub mod input;
 #[cfg(feature = "page-networking")]
 pub mod networking;
-#[cfg(feature = "page-power")]
-pub mod power;
 #[cfg(feature = "page-sound")]
 pub mod sound;
 pub mod system;
@@ -27,12 +23,6 @@ pub type Element<'a> = cosmic::Element<'a, Message>;
 #[derive(Clone, Debug)]
 pub enum Message {
     // Page-specific messages
-    #[cfg(feature = "page-accessibility")]
-    Accessibility(accessibility::Message),
-    #[cfg(feature = "page-accessibility")]
-    AccessibilityMagnifier(accessibility::magnifier::Message),
-    #[cfg(feature = "page-input")]
-    AccessibilityShortcuts(input::keyboard::shortcuts::ShortcutMessage),
     #[cfg(feature = "page-about")]
     About(system::about::Message),
     Appearance(desktop::appearance::Message),
@@ -66,8 +56,6 @@ pub enum Message {
     Keyboard(input::keyboard::Message),
     #[cfg(feature = "page-input")]
     KeyboardShortcuts(input::keyboard::shortcuts::Message),
-    #[cfg(feature = "page-legacy-applications")]
-    LegacyApplications(applications::legacy_applications::Message),
     #[cfg(feature = "page-input")]
     ManageWindowShortcuts(input::keyboard::shortcuts::ShortcutMessage),
     #[cfg(feature = "page-input")]
@@ -81,8 +69,6 @@ pub enum Message {
     Panel(desktop::panel::Message),
     #[cfg(feature = "wayland")]
     PanelApplet(desktop::panel::applets_inner::Message),
-    #[cfg(feature = "page-power")]
-    Power(power::Message),
     #[cfg(feature = "page-region")]
     Region(time::region::Message),
     #[cfg(feature = "page-sound")]
@@ -96,8 +82,6 @@ pub enum Message {
     SystemShortcuts(input::keyboard::shortcuts::ShortcutMessage),
     #[cfg(feature = "page-input")]
     TilingShortcuts(input::keyboard::shortcuts::ShortcutMessage),
-    #[cfg(feature = "page-networking")]
-    Vpn(networking::vpn::Message),
     #[cfg(feature = "page-networking")]
     WiFi(networking::wifi::Message),
     #[cfg(feature = "page-window-management")]

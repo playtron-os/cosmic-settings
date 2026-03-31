@@ -13,6 +13,7 @@ use cosmic::widget::{
 };
 use cosmic::{Apply, Element, theme};
 use cosmic_settings_page as page;
+use cosmic_settings_page::section::Section;
 
 pub fn color_picker_context_view<'a, Message: Clone + 'static>(
     description: Option<Cow<'static, str>>,
@@ -100,6 +101,142 @@ pub fn unimplemented_page<Message: 'static>() -> Element<'static, Message> {
 }
 
 #[must_use]
+pub fn coming_soon<'a, Message: Clone + 'static>(
+    parent_page_title: &'a str,
+    on_back: Message,
+) -> Element<'a, Message> {
+    let theme = theme::active();
+    let cosmic = theme.cosmic();
+    let spacing = &cosmic.spacing;
+
+    let back_link = button::icon(icon::from_svg_bytes(
+        icetron_assets::icons::system::ARROW_LEFT_S_LINE,
+    ))
+    .extra_small()
+    .padding(0)
+    .label(parent_page_title)
+    .spacing(4)
+    .class(button::ButtonClass::Link)
+    .on_press(on_back.clone());
+
+    column::with_capacity(2)
+        .push(back_link)
+        .push(
+            container(coming_soon_body(on_back))
+                .center_x(Length::Fill),
+        )
+        .spacing(spacing.space_s)
+        .width(Length::Fill)
+        .into()
+}
+
+#[must_use]
+pub fn coming_soon_body<'a, Message: Clone + 'static>(on_back: Message) -> Element<'a, Message> {
+    let theme = theme::active();
+    let cosmic = theme.cosmic();
+    let spacing = &cosmic.spacing;
+
+    let icon_container = container(
+        icon::icon(icon::from_svg_bytes(
+            icetron_assets::icons::design::TOOLS_LINE,
+        ))
+        .size(32),
+    )
+    .padding(spacing.space_m)
+    .class(crate::theme::coming_soon_icon_container());
+
+    let title = text::title3(fl!("coming-soon"));
+    let description = text::body(fl!("coming-soon-description"));
+
+    let go_back_button = button::custom(
+        row::with_capacity(2)
+            .push(
+                icon::icon(icon::from_svg_bytes(
+                    icetron_assets::icons::system::ARROW_LEFT_S_LINE,
+                ))
+                .size(16),
+            )
+            .push(text::body(fl!("go-back")))
+            .align_y(Alignment::Center)
+            .spacing(spacing.space_xxs),
+    )
+    .class(theme::Button::Standard)
+    .on_press(on_back);
+
+    column::with_capacity(4)
+        .push(icon_container)
+        .push(title)
+        .push(description)
+        .push(go_back_button)
+        .align_x(Alignment::Center)
+        .spacing(spacing.space_s)
+        .width(Length::Shrink)
+        .apply(container)
+        .center_x(Length::Fill)
+        .padding([120, 0, 60, 0])
+        .into()
+}
+
+#[must_use]
+pub fn coming_soon_section() -> Section<crate::pages::Message> {
+    let mut section = Section::default()
+        .title(fl!("coming-soon"))
+        .search_ignore();
+
+    section.view_fn = Box::new(move |binder, model, _section| {
+        let page_info = model.info();
+        let parent_entity = binder
+            .info
+            .iter()
+            .find(|(_entity, info)| info.id == page_info.id)
+            .and_then(|(_entity, info)| info.parent);
+        coming_soon_section_body(parent_entity)
+    });
+
+    section
+}
+
+#[must_use]
+fn coming_soon_section_body<'a>(
+    parent: Option<cosmic_settings_page::Entity>,
+) -> Element<'a, crate::pages::Message> {
+    let theme = theme::active();
+    let cosmic = theme.cosmic();
+    let spacing = &cosmic.spacing;
+
+    let icon_container = container(
+        icon::icon(icon::from_svg_bytes(
+            icetron_assets::icons::design::TOOLS_LINE,
+        ))
+        .size(32),
+    )
+    .padding(spacing.space_m)
+    .class(crate::theme::coming_soon_icon_container());
+
+    let title = text::title3(fl!("coming-soon"));
+    let description = text::body(fl!("coming-soon-description"));
+
+    let go_back_button = parent.map(|parent_entity| {
+        button::secondary(fl!("go-back"))
+            .leading_icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_LEFT_S_LINE))
+            .on_press(crate::pages::Message::Page(parent_entity))
+    });
+
+    column::with_capacity(4)
+        .push(icon_container)
+        .push(title)
+        .push(description)
+        .push_maybe(go_back_button)
+        .align_x(Alignment::Center)
+        .spacing(spacing.space_s)
+        .width(Length::Shrink)
+        .apply(container)
+        .center_x(Length::Fill)
+        .padding([spacing.space_l, 0, spacing.space_l, 0])
+        .into()
+}
+
+#[must_use]
 pub fn display_container<'a, Message: 'a>(widget: Element<'a, Message>) -> Element<'a, Message> {
     container(widget)
         .class(crate::theme::display_container_screen())
@@ -116,6 +253,18 @@ pub fn page_list_item<'a, Message: 'static + Clone>(
     title: impl Into<Cow<'a, str>>,
     description: impl Into<Cow<'a, str>>,
     info: impl Into<Cow<'a, str>>,
+    icon: &'a str,
+    message: Message,
+) -> Element<'a, Message> {
+    page_list_item_colored(title, description, info, None, icon, message)
+}
+
+#[must_use]
+pub fn page_list_item_colored<'a, Message: 'static + Clone>(
+    title: impl Into<Cow<'a, str>>,
+    description: impl Into<Cow<'a, str>>,
+    info: impl Into<Cow<'a, str>>,
+    info_color: Option<cosmic::iced::Color>,
     icon: &'a str,
     message: Message,
 ) -> Element<'a, Message> {
@@ -136,12 +285,20 @@ pub fn page_list_item<'a, Message: 'static + Clone>(
         builder = builder.description(description);
     }
 
+    let info_text: Element<'a, Message> = if let Some(color) = info_color {
+        text::body(info)
+            .class(cosmic::theme::Text::Color(color))
+            .into()
+    } else {
+        text::body(info).into()
+    };
+
     builder
-        .icon(container(icon::from_name(icon).size(20)).padding(8))
+        .icon(container(crate::icon_helper::named_icon(icon, 20)).padding(8))
         .control(
             row::with_capacity(2)
-                .push(text::body(info))
-                .push(container(icon::from_name("go-next-symbolic").size(20)).padding(8))
+                .push(info_text)
+                .push(container(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(20)).padding(8))
                 .align_y(Alignment::Center),
         )
         .padding(0)
@@ -163,7 +320,7 @@ pub fn sub_page_header<'a, Message: 'static + Clone>(
     parent_page: &'a str,
     on_press: Message,
 ) -> Element<'a, Message> {
-    let previous_button = button::icon(icon::from_name("go-previous-symbolic"))
+    let previous_button = button::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_LEFT_S_LINE))
         .extra_small()
         .padding(0)
         .label(parent_page)
@@ -188,7 +345,7 @@ pub fn go_next_item<Msg: Clone + 'static>(
     settings::item_row(vec![
         text::body(description).wrapping(Wrapping::Word).into(),
         horizontal_space().into(),
-        icon::from_name("go-next-symbolic").size(16).icon().into(),
+        icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(16).into(),
     ])
     .apply(widget::container)
     .class(cosmic::theme::Container::List)
@@ -209,7 +366,7 @@ pub fn go_next_with_item<'a, Msg: Clone + 'static>(
         horizontal_space().into(),
         widget::row::with_capacity(2)
             .push(item)
-            .push(icon::from_name("go-next-symbolic").size(16).icon())
+            .push(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(16))
             .align_y(Alignment::Center)
             .spacing(cosmic::theme::spacing().space_s)
             .into(),

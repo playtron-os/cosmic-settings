@@ -932,3 +932,8 @@ full-name = Full name
 invalid-username = Invalid username
 password-mismatch = Password and confirmation must match
 save = Save
+
+## Coming Soon
+coming-soon = Coming Soon
+coming-soon-description = This section is currently under development and will be available in a future update.
+go-back = Go back

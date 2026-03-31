@@ -11,12 +11,13 @@ use cosmic_comp_config::workspace::{WorkspaceConfig, WorkspaceLayout};
 use cosmic_settings_page::Section;
 use cosmic_settings_page::{self as page, section};
 use slab::Slab;
-use slotmap::SlotMap;
+use slotmap::{Key, SlotMap};
 use tracing::error;
 
 use super::Message;
 
 pub struct Page {
+    entity: page::Entity,
     comp_workspace_config: WorkspaceConfig,
 }
 
@@ -31,22 +32,22 @@ impl Default for Page {
             WorkspaceConfig::default()
         });
         Self {
+            entity: page::Entity::null(),
             comp_workspace_config,
         }
     }
 }
 
 impl page::Page<crate::pages::Message> for Page {
+    fn set_id(&mut self, entity: page::Entity) {
+        self.entity = entity;
+    }
+
     fn content(
         &self,
         sections: &mut SlotMap<section::Entity, Section<crate::pages::Message>>,
     ) -> Option<page::Content> {
-        Some(vec![
-            sections.insert(touchpad()),
-            sections.insert(click_behavior()),
-            sections.insert(scrolling()),
-            sections.insert(gestures()),
-        ])
+        Some(vec![sections.insert(crate::widget::coming_soon_section())])
     }
 
     fn info(&self) -> page::Info {

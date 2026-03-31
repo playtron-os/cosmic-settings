@@ -262,7 +262,7 @@ impl Page {
             has_some = true;
             list_column = list_column.add(
                 row::with_children(vec![
-                    icon::from_name(&*info.icon).size(32).icon().into(),
+                    crate::icon_helper::named_icon(&*info.icon, 32).into(),
                     column::with_capacity(2)
                         .push(text::body(info.name.clone()))
                         .push_maybe(if info.description.is_empty() {
@@ -653,11 +653,10 @@ impl<'a, Message: 'static + Clone> AppletReorderList<'a, Message> {
                     row().height(Length::Fixed(32.0))
                 } else {
                     row::with_children(vec![
-                        icon::from_name("grip-lines-symbolic")
-                            .symbolic(true)
+                        icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::GRIP))
                             .size(16)
                             .into(),
-                        icon::from_name(info.icon).size(32).into(),
+                        crate::icon_helper::named_icon(&info.icon, 32).into(),
                         column::with_capacity(2)
                             .spacing(space_xxxs)
                             .width(Length::Fill)
@@ -668,7 +667,7 @@ impl<'a, Message: 'static + Clone> AppletReorderList<'a, Message> {
                                 Some(text::caption(info.description))
                             })
                             .into(),
-                        button::icon(icon::from_name("edit-delete-symbolic"))
+                        button::icon(icon::from_svg_bytes(icetron_assets::icons::system::DELETE_BIN_LINE))
                             .extra_small()
                             .on_press(on_remove(id_clone.clone()))
                             .into(),
@@ -835,11 +834,10 @@ pub fn dnd_icon(info: Applet<'static>, layout: &layout::Layout) -> AppletReorder
         on_finish: None,
         inner: container(
             row::with_children(vec![
-                icon::from_name("grip-lines-symbolic")
+                icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::GRIP))
                     .size(16)
-                    .symbolic(true)
                     .into(),
-                icon::from_name(info.icon.into_owned()).size(32).into(),
+                crate::icon_helper::named_icon(&info.icon, 32).into(),
                 column::with_capacity(2)
                     .spacing(4.0)
                     .width(Length::Fill)
@@ -850,7 +848,7 @@ pub fn dnd_icon(info: Applet<'static>, layout: &layout::Layout) -> AppletReorder
                         Some(text::caption(info.description))
                     })
                     .into(),
-                button::icon(icon::from_name("edit-delete-symbolic"))
+                button::icon(icon::from_svg_bytes(icetron_assets::icons::system::DELETE_BIN_LINE))
                     .extra_small()
                     .into(),
             ])

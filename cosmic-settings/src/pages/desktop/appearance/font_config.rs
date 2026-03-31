@@ -207,9 +207,8 @@ impl Model {
                         .width(cosmic::iced::Length::Fill)
                         .into(),
                     if selected {
-                        widget::icon::from_name("object-select-symbolic")
+                        widget::icon::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::CHECK_LINE))
                             .size(16)
-                            .icon()
                             .class(cosmic::theme::Svg::Custom(svg_accent.clone()))
                             .into()
                     } else {
