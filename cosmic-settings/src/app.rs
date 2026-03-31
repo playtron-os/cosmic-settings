@@ -982,10 +982,7 @@ impl SettingsApp {
 
     fn set_title(&mut self) -> Task<crate::Message> {
         self.set_window_title(
-            format!(
-                "{} - Settings",
-                self.pages.info[self.active_page].title
-            ),
+            format!("{} - Settings", self.pages.info[self.active_page].title),
             self.core.main_window_id().unwrap(),
         )
     }
