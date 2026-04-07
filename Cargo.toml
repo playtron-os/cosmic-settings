@@ -12,10 +12,10 @@ tokio = { version = "1.49.0", features = ["macros"] }
 
 [workspace.dependencies.libcosmic]
 features = ["dbus-config", "desktop", "multi-window", "winit", "tokio", "qr_code"]
-git = "https://github.com/pop-os/libcosmic"
+git = "https://github.com/playtron-os/libcosmic"
 
 [workspace.dependencies.cosmic-config]
-git = "https://github.com/pop-os/libcosmic"
+git = "https://github.com/playtron-os/libcosmic"
 
 [workspace.dependencies.cosmic-bg-config]
 git = "https://github.com/pop-os/cosmic-bg"
@@ -52,7 +52,11 @@ lto = "off"
 debug = true
 
 # [patch.'https://github.com/pop-os/cosmic-text']
+# [patch.'https://github.com/pop-os/cosmic-text']
 # cosmic-text = { git = "https://github.com/pop-os/cosmic-text//", rev = "b017d7c" }
+
+# [patch.'https://github.com/pop-os/cosmic-text.git']
+# cosmic-text = { git = "https://github.com/pop-os/cosmic-text//", rev = "d5a972a" }
 
 # [patch.'https://github.com/pop-os/cosmic-protocols']
 # cosmic-protocols = { git = "https://github.com/pop-os/cosmic-protocols//", rev = "d0e95be" }

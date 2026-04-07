@@ -11,6 +11,22 @@ pub const STATE_DEFAULT: cosmic::iced::Color = cosmic::iced::Color {
     a: 1.0,
 };
 
+/// Gray used for inactive element borders and text
+pub const STATE_INACTIVE: cosmic::iced::Color = cosmic::iced::Color {
+    r: 0.5,
+    g: 0.5,
+    b: 0.5,
+    a: 1.0,
+};
+
+/// Light gray used for inactive elements fill
+pub const STATE_INACTIVE_FILL: cosmic::iced::Color = cosmic::iced::Color {
+    r: 0.75,
+    g: 0.75,
+    b: 0.75,
+    a: 0.1,
+};
+
 #[must_use]
 pub fn coming_soon_icon_container() -> cosmic::theme::Container<'static> {
     theme::Container::custom(|theme| {

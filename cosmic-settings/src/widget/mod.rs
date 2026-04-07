@@ -217,7 +217,7 @@ fn coming_soon_section_body<'a>(
     let description = text::body(fl!("coming-soon-description"));
 
     let go_back_button = parent.map(|parent_entity| {
-        button::secondary(fl!("go-back"))
+        button::standard(fl!("go-back"))
             .leading_icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_LEFT_S_LINE))
             .on_press(crate::pages::Message::Page(parent_entity))
     });

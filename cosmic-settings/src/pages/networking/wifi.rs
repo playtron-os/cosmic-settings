@@ -189,7 +189,7 @@ impl page::Page<crate::pages::Message> for Page {
                     .on_press(Message::ConnectWithPassword);
 
                 let secondary_action =
-                    widget::button::secondary(fl!("cancel")).on_press(Message::CancelDialog);
+                    widget::button::standard(fl!("cancel")).on_press(Message::CancelDialog);
 
                 let control: Element<_> = if let Some(identity) = identity {
                     column::column()
