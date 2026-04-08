@@ -332,7 +332,7 @@ impl<Message: Clone> Widget<Message, cosmic::Theme, Renderer> for Arrangement<'_
                 Quad {
                     bounds: region,
                     border: Border {
-                        color: border_color.into(),
+                        color: border_color,
                         radius: 4.0.into(),
                         width: 1.5,
                     },
@@ -358,7 +358,7 @@ impl<Message: Clone> Widget<Message, cosmic::Theme, Renderer> for Arrangement<'_
                     x: region.center_x(),
                     y: region.center_y(),
                 },
-                text_color.into(),
+                text_color,
                 *viewport,
             );
         }

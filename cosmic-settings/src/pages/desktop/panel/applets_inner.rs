@@ -262,7 +262,7 @@ impl Page {
             has_some = true;
             list_column = list_column.add(
                 row::with_children(vec![
-                    crate::icon_helper::named_icon(&*info.icon, 32).into(),
+                    crate::icon_helper::named_icon(&info.icon, 32).into(),
                     column::with_capacity(2)
                         .push(text::body(info.name.clone()))
                         .push_maybe(if info.description.is_empty() {

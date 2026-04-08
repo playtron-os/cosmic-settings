@@ -943,7 +943,7 @@ impl SettingsApp {
         self.nav_model
             .insert()
             .text(page.title.clone())
-            .icon(crate::icon_helper::named_icon(&*page.icon_name, 16))
+            .icon(crate::icon_helper::named_icon(&page.icon_name, 16))
             .data(id)
             .with_id(|nav_id| self.pages.data_set(id, nav_id))
     }
