@@ -667,10 +667,12 @@ impl<'a, Message: 'static + Clone> AppletReorderList<'a, Message> {
                                 Some(text::caption(info.description))
                             })
                             .into(),
-                        button::icon(icon::from_svg_bytes(icetron_assets::icons::system::DELETE_BIN_LINE))
-                            .extra_small()
-                            .on_press(on_remove(id_clone.clone()))
-                            .into(),
+                        button::icon(icon::from_svg_bytes(
+                            icetron_assets::icons::system::DELETE_BIN_LINE,
+                        ))
+                        .extra_small()
+                        .on_press(on_remove(id_clone.clone()))
+                        .into(),
                     ])
                     .spacing(space_xs)
                     .align_y(Alignment::Center)
@@ -848,9 +850,11 @@ pub fn dnd_icon(info: Applet<'static>, layout: &layout::Layout) -> AppletReorder
                         Some(text::caption(info.description))
                     })
                     .into(),
-                button::icon(icon::from_svg_bytes(icetron_assets::icons::system::DELETE_BIN_LINE))
-                    .extra_small()
-                    .into(),
+                button::icon(icon::from_svg_bytes(
+                    icetron_assets::icons::system::DELETE_BIN_LINE,
+                ))
+                .extra_small()
+                .into(),
             ])
             .spacing(12)
             .align_y(Alignment::Center),

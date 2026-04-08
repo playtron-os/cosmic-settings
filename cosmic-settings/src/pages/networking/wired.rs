@@ -129,7 +129,12 @@ impl page::Page<crate::pages::Message> for Page {
 
                 widget::dialog()
                     .title(fl!("remove-connection-dialog"))
-                    .icon(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::INFORMATION_LINE)).size(64))
+                    .icon(
+                        icon::icon(icon::from_svg_bytes(
+                            icetron_assets::icons::system::INFORMATION_LINE,
+                        ))
+                        .size(64),
+                    )
                     .body(fl!("remove-connection-dialog", "wired-description"))
                     .primary_action(primary_action)
                     .secondary_action(secondary_action)
@@ -142,7 +147,9 @@ impl page::Page<crate::pages::Message> for Page {
     fn header_view(&self) -> Option<cosmic::Element<'_, crate::pages::Message>> {
         Some(
             widget::button::standard(fl!("add-network", "profile"))
-                .trailing_icon(icon::from_svg_bytes(icetron_assets::icons::system::EXTERNAL_LINK_LINE))
+                .trailing_icon(icon::from_svg_bytes(
+                    icetron_assets::icons::system::EXTERNAL_LINK_LINE,
+                ))
                 .on_press(Message::AddNetwork)
                 .apply(widget::container)
                 .width(Length::Fill)
@@ -507,8 +514,9 @@ impl Page {
                             .into()
                     };
 
-                    let view_more_button =
-                        widget::button::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::MORE_LINE));
+                    let view_more_button = widget::button::icon(widget::icon::from_svg_bytes(
+                        icetron_assets::icons::system::MORE_LINE,
+                    ));
 
                     let view_more: Option<Element<_>> = if self
                         .view_more_popup

@@ -443,7 +443,11 @@ fn device_profiles() -> Section<crate::pages::Message> {
             let descriptions = &section.descriptions;
             let button = widget::row::with_children(vec![
                 widget::horizontal_space().into(),
-                widget::icon::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(16).into(),
+                widget::icon::icon(widget::icon::from_svg_bytes(
+                    icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+                ))
+                .size(16)
+                .into(),
             ]);
 
             let device_profiles = settings::item::builder(&*descriptions[button_txt])

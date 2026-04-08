@@ -834,8 +834,10 @@ fn connected_devices() -> Section<crate::pages::Message> {
                         .is_some_and(|p| path.as_str() == p.as_str())
                     {
                         widget::popover(
-                            widget::button::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::MORE_LINE))
-                                .on_press(Message::PopupDevice(None)),
+                            widget::button::icon(widget::icon::from_svg_bytes(
+                                icetron_assets::icons::system::MORE_LINE,
+                            ))
+                            .on_press(Message::PopupDevice(None)),
                         )
                         .position(widget::popover::Position::Bottom)
                         .on_close(Message::PopupDevice(None))
@@ -858,9 +860,11 @@ fn connected_devices() -> Section<crate::pages::Message> {
                         )
                         .into()
                     } else {
-                        widget::button::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::MORE_LINE))
-                            .on_press(Message::PopupDevice(Some(path.clone())))
-                            .into()
+                        widget::button::icon(widget::icon::from_svg_bytes(
+                            icetron_assets::icons::system::MORE_LINE,
+                        ))
+                        .on_press(Message::PopupDevice(Some(path.clone())))
+                        .into()
                     };
 
                     Some(settings::item_row(vec![
@@ -978,15 +982,20 @@ fn multiple_adapter() -> Section<crate::pages::Message> {
                 .iter()
                 .map(|(path, adapter)| {
                     let mut items = vec![
-                        widget::icon::icon(widget::icon::from_svg_bytes(icetron_assets::icons::device::BLUETOOTH_LINE))
-                            .size(20)
-                            .into(),
+                        widget::icon::icon(widget::icon::from_svg_bytes(
+                            icetron_assets::icons::device::BLUETOOTH_LINE,
+                        ))
+                        .size(20)
+                        .into(),
                         widget::horizontal_space()
                             .width(theme::spacing().space_xxs)
                             .into(),
                         text(&adapter.alias).wrapping(Wrapping::Word).into(),
                         widget::horizontal_space().into(),
-                        widget::icon::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).into(),
+                        widget::icon::icon(widget::icon::from_svg_bytes(
+                            icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+                        ))
+                        .into(),
                     ];
                     if page.model.adapter_connected(path) {
                         items.insert(

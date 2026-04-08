@@ -1,8 +1,11 @@
-Name:           cosmic-settings
+%global app_name cosmic-settings
+%global debug_package %{nil}
+
+Name:           %{app_name}
 Epoch:          1
-Version: 1.0.1
+Version: 1.0.3
 Release:        1%{?dist}
-Summary:        COSMIC Settings - System settings application for COSMIC desktop (Playtron fork)
+Summary:        Settings - System settings application (Playtron fork)
 
 License:        GPL-3.0-only
 URL:            https://github.com/pop-os/cosmic-settings

@@ -322,9 +322,9 @@ checksum = "c3d036a3c4ab069c7b410a2ce876bd74808d2d0888a82667669f8e783a898bf1"
 
 [[package]]
 name = "arc-swap"
-version = "1.9.0"
+version = "1.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a07d1f37ff60921c83bdfc7407723bdefe89b44b98a9b772f225c8f9d67141a6"
+checksum = "6a3a1fd6f75306b68087b831f025c712524bcb19aad54e557b1129cfa0a2b207"
 dependencies = [
  "rustversion",
 ]
@@ -456,7 +456,7 @@ checksum = "c96bf972d85afc50bf5ab8fe2d54d1586b4e0b46c97c50a0c9e71e2f7bcd812a"
 dependencies = [
  "async-task",
  "concurrent-queue",
- "fastrand 2.3.0",
+ "fastrand 2.4.1",
  "futures-lite 2.6.1",
  "pin-project-lite",
  "slab",
@@ -568,9 +568,9 @@ dependencies = [
 
 [[package]]
 name = "async-signal"
-version = "0.2.13"
+version = "0.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43c070bbf59cd3570b6b2dd54cd772527c7c3620fce8be898406dd3ed6adc64c"
+checksum = "52b5aaafa020cf5053a01f2a60e8ff5dccf550f0f77ec54a4e47285ac2bab485"
 dependencies = [
  "async-io 2.6.0",
  "async-lock 3.4.2",
@@ -1474,7 +1474,7 @@ dependencies = [
 [[package]]
 name = "cosmic-comp-config"
 version = "1.0.0"
-source = "git+https://github.com/playtron-os/cosmic-comp#d0f8626ac7d4c6d71082506c9cac02c5d43c304b"
+source = "git+https://github.com/playtron-os/cosmic-comp?rev=a913b75#a913b75fd47fcd9ebc81870b40c073bcdcdb5ea5"
 dependencies = [
  "cosmic-config",
  "input",
@@ -1486,7 +1486,7 @@ dependencies = [
 [[package]]
 name = "cosmic-config"
 version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "atomicwrites",
  "cosmic-config-derive",
@@ -1507,7 +1507,7 @@ dependencies = [
 [[package]]
 name = "cosmic-config-derive"
 version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "quote",
  "syn 2.0.117",
@@ -1649,7 +1649,7 @@ dependencies = [
 
 [[package]]
 name = "cosmic-settings"
-version = "1.0.1"
+version = "1.0.3"
 dependencies = [
  "accounts-zbus",
  "anyhow",
@@ -1687,7 +1687,7 @@ dependencies = [
  "hostname1-zbus",
  "i18n-embed",
  "i18n-embed-fl",
- "icetron_assets 0.1.0 (git+ssh://git@bitbucket.org/playtron-one/icetron.git?rev=6db4fa7)",
+ "icetron_assets",
  "icu",
  "image",
  "indexmap 2.13.1",
@@ -1896,7 +1896,7 @@ dependencies = [
 [[package]]
 name = "cosmic-text"
 version = "0.18.2"
-source = "git+https://github.com/pop-os/cosmic-text.git#9a2ab09f06905e91f41d64ac6eee887726e7fd76"
+source = "git+https://github.com/pop-os/cosmic-text//?rev=d5a972a#d5a972a2b63649fad11ea3a7e80f7dc4c592f01a"
 dependencies = [
  "bitflags 2.11.0",
  "fontdb 0.23.0",
@@ -1919,7 +1919,7 @@ dependencies = [
 [[package]]
 name = "cosmic-theme"
 version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "almost",
  "cosmic-config",
@@ -2543,9 +2543,9 @@ dependencies = [
 
 [[package]]
 name = "fastrand"
-version = "2.3.0"
+version = "2.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "37909eebbb50d72f9059c3b6d82c0463f2ff062c9e95845c43a6c9c0355411be"
+checksum = "9f1f227452a390804cdb637b74a86990f2a7d7ba4b7d5693aac9b4dd6defd8d6"
 
 [[package]]
 name = "fax"
@@ -2683,9 +2683,9 @@ checksum = "d9c4f5dac5e15c24eb999c26181a6ca40b39fe946cbe4c263c7209467bc83af2"
 
 [[package]]
 name = "font-types"
-version = "0.11.1"
+version = "0.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "73829a7b5c91198af28a99159b7ae4afbb252fb906159ff7f189f3a2ceaa3df2"
+checksum = "2d9237c6d82152100c691fb77ea18037b402bcc7257d2c876a4ffac81bc22a1c"
 dependencies = [
  "bytemuck",
 ]
@@ -2866,7 +2866,7 @@ version = "2.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f78e10609fe0e0b3f4157ffab1876319b5b0db102a2c60dc4626306dc46b44ad"
 dependencies = [
- "fastrand 2.3.0",
+ "fastrand 2.4.1",
  "futures-core",
  "futures-io",
  "parking",
@@ -3359,7 +3359,7 @@ dependencies = [
 [[package]]
 name = "iced"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "dnd",
  "iced_accessibility",
@@ -3377,7 +3377,7 @@ dependencies = [
 [[package]]
 name = "iced_accessibility"
 version = "0.1.0"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "accesskit",
  "accesskit_winit",
@@ -3386,7 +3386,7 @@ dependencies = [
 [[package]]
 name = "iced_core"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "bitflags 2.11.0",
  "bytes",
@@ -3411,7 +3411,7 @@ dependencies = [
 [[package]]
 name = "iced_futures"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "futures",
  "iced_core",
@@ -3437,7 +3437,7 @@ dependencies = [
 [[package]]
 name = "iced_graphics"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "bitflags 2.11.0",
  "bytemuck",
@@ -3459,7 +3459,7 @@ dependencies = [
 [[package]]
 name = "iced_renderer"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "iced_graphics",
  "iced_tiny_skia",
@@ -3471,7 +3471,7 @@ dependencies = [
 [[package]]
 name = "iced_runtime"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "bytes",
  "cosmic-client-toolkit",
@@ -3487,7 +3487,7 @@ dependencies = [
 [[package]]
 name = "iced_tiny_skia"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "bytemuck",
  "cosmic-text",
@@ -3503,7 +3503,7 @@ dependencies = [
 [[package]]
 name = "iced_wgpu"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "as-raw-xcb-connection",
  "bitflags 2.11.0",
@@ -3534,7 +3534,7 @@ dependencies = [
 [[package]]
 name = "iced_widget"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "cosmic-client-toolkit",
  "dnd",
@@ -3555,7 +3555,7 @@ dependencies = [
 [[package]]
 name = "iced_winit"
 version = "0.14.0-dev"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "cosmic-client-toolkit",
  "dnd",
@@ -3586,11 +3586,6 @@ dependencies = [
 name = "icetron_assets"
 version = "0.1.0"
 source = "git+ssh://git@bitbucket.org/playtron-one/icetron.git?rev=6db4fa7#6db4fa7823eecb615b735d21a5f77000202564c1"
-
-[[package]]
-name = "icetron_assets"
-version = "0.1.0"
-source = "git+ssh://git@bitbucket.org/playtron-one/icetron.git?rev=a1bf042#a1bf0429ca070e78c2069fde5dde625f46e18227"
 
 [[package]]
 name = "icu"
@@ -4158,9 +4153,9 @@ dependencies = [
 
 [[package]]
 name = "input-sys"
-version = "1.18.0"
+version = "1.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd4f5b4d1c00331c5245163aacfe5f20be75b564c7112d45893d4ae038119eb0"
+checksum = "36eee07d8e02bd95bf52b2e642cf13d33701b94c6e4b04fbf1d1fb07e9cb19e7"
 
 [[package]]
 name = "instant"
@@ -4675,7 +4670,7 @@ checksum = "48f5d2a454e16a5ea0f4ced81bd44e4cfc7bd3a507b61887c99fd3538b28e4af"
 [[package]]
 name = "libcosmic"
 version = "1.0.0"
-source = "git+https://github.com/playtron-os/libcosmic#ba0e126fafcf0845635c9a4b18293c6ed015b126"
+source = "git+https://github.com/playtron-os/libcosmic?branch=feat%2Freskin#8aad5a61e0af129b63ba5a2935275b94988f2a91"
 dependencies = [
  "apply",
  "ashpd 0.12.3",
@@ -4703,7 +4698,7 @@ dependencies = [
  "iced_wgpu",
  "iced_widget",
  "iced_winit",
- "icetron_assets 0.1.0 (git+ssh://git@bitbucket.org/playtron-one/icetron.git?rev=a1bf042)",
+ "icetron_assets",
  "image",
  "libc",
  "log",
@@ -5921,7 +5916,7 @@ version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "135ace3a761e564ec88c03a77317a7c6b80bb7f7135ef2544dbe054243b89737"
 dependencies = [
- "fastrand 2.3.0",
+ "fastrand 2.4.1",
  "phf_shared 0.13.1",
 ]
 
@@ -6016,7 +6011,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c835479a4443ded371d6c535cbfd8d31ad92c5d23ae9770a61bc155e4992a3c1"
 dependencies = [
  "atomic-waker",
- "fastrand 2.3.0",
+ "fastrand 2.4.1",
  "futures-io",
 ]
 
@@ -6195,7 +6190,7 @@ version = "3.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e67ba7e9b2b56446f1d419b1d807906278ffa1a658a8a5d8a39dcb1f5a78614f"
 dependencies = [
- "toml_edit 0.25.10+spec-1.1.0",
+ "toml_edit 0.25.11+spec-1.1.0",
 ]
 
 [[package]]
@@ -6924,9 +6919,9 @@ checksum = "b12e76d157a900eb52e81bc6e9f3069344290341720e9178cde2407113ac8d89"
 
 [[package]]
 name = "semver"
-version = "1.0.27"
+version = "1.0.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d767eb0aabc880b29956c35734170f26ed551a859dbd361d140cdbeca61ab1e2"
+checksum = "8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd"
 
 [[package]]
 name = "serde"
@@ -7297,7 +7292,7 @@ dependencies = [
  "cocoa",
  "core-graphics",
  "drm",
- "fastrand 2.3.0",
+ "fastrand 2.4.1",
  "foreign-types",
  "js-sys",
  "log",
@@ -7521,7 +7516,7 @@ version = "3.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
- "fastrand 2.3.0",
+ "fastrand 2.4.1",
  "getrandom 0.4.2",
  "once_cell",
  "rustix 1.1.4",
@@ -7706,9 +7701,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.51.0"
+version = "1.51.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2bd1c4c0fc4a7ab90fc15ef6daaa3ec3b893f004f915f2392557ed23237820cd"
+checksum = "f66bf9585cda4b724d3e78ab34b73fb2bbaba9011b9bfdf69dc836382ea13b8c"
 dependencies = [
  "bytes",
  "libc",
@@ -7795,9 +7790,9 @@ dependencies = [
 
 [[package]]
 name = "toml_edit"
-version = "0.25.10+spec-1.1.0"
+version = "0.25.11+spec-1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a82418ca169e235e6c399a84e395ab6debeb3bc90edc959bf0f48647c6a32d1b"
+checksum = "0b59c4d22ed448339746c59b905d24568fcbb3ab65a500494f7b8c3e97739f2b"
 dependencies = [
  "indexmap 2.13.1",
  "toml_datetime 1.1.1+spec-1.1.0",

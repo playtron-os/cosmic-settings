@@ -171,7 +171,12 @@ impl page::Page<crate::pages::Message> for Page {
                         "remove-dialog-title",
                         name = app_to_remove.name(&cached_startup_apps.locales)
                     ))
-                    .icon(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ERROR_WARNING_LINE)).size(64))
+                    .icon(
+                        icon::icon(icon::from_svg_bytes(
+                            icetron_assets::icons::system::ERROR_WARNING_LINE,
+                        ))
+                        .size(64),
+                    )
                     .body(fl!("startup-apps", "remove-dialog-description"))
                     .primary_action(
                         button::suggested(fl!("remove")).on_press(
@@ -339,9 +344,10 @@ impl Page {
                         .spacing(space_xs)
                         .align_y(Alignment::Center);
 
-                    row = row.push(
-                        crate::icon_helper::named_icon(app.icon().unwrap_or("application-default"), 32),
-                    );
+                    row = row.push(crate::icon_helper::named_icon(
+                        app.icon().unwrap_or("application-default"),
+                        32,
+                    ));
 
                     if let Some(name) = app.name(&startup_apps.locales) {
                         row = row.push(text(name).width(Length::Fill));
@@ -389,9 +395,10 @@ fn apps() -> Section<crate::pages::Message> {
                                     .spacing(space_xs)
                                     .align_y(Alignment::Center);
 
-                                row = row.push(
-                                    crate::icon_helper::named_icon(app.icon().unwrap_or("application-default"), 32),
-                                );
+                                row = row.push(crate::icon_helper::named_icon(
+                                    app.icon().unwrap_or("application-default"),
+                                    32,
+                                ));
 
                                 if let Some(name) = app.name(&startup_apps.locales) {
                                     row = row.push(text::body(name).width(Length::Fill));
@@ -400,16 +407,18 @@ fn apps() -> Section<crate::pages::Message> {
                                 }
 
                                 row = row.push(
-                                    button::icon(icon::from_svg_bytes(icetron_assets::icons::system::DELETE_BIN_LINE))
-                                        .extra_small()
-                                        .on_press(
-                                            Message::RemoveStartupApplication(
-                                                directory_type.clone(),
-                                                app.clone(),
-                                                false,
-                                            )
-                                            .into(),
-                                        ),
+                                    button::icon(icon::from_svg_bytes(
+                                        icetron_assets::icons::system::DELETE_BIN_LINE,
+                                    ))
+                                    .extra_small()
+                                    .on_press(
+                                        Message::RemoveStartupApplication(
+                                            directory_type.clone(),
+                                            app.clone(),
+                                            false,
+                                        )
+                                        .into(),
+                                    ),
                                 );
 
                                 section = section.add(row)

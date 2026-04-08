@@ -317,7 +317,10 @@ impl<Message: Clone> Widget<Message, cosmic::Theme, Renderer> for Arrangement<'_
 
             let (background, border_color, text_color) = if is_active {
                 (
-                    cosmic::iced::Color { a: 0.1, ..STATE_DEFAULT },
+                    cosmic::iced::Color {
+                        a: 0.1,
+                        ..STATE_DEFAULT
+                    },
                     STATE_DEFAULT,
                     STATE_DEFAULT,
                 )
@@ -350,7 +353,6 @@ impl<Message: Clone> Widget<Message, cosmic::Theme, Renderer> for Arrangement<'_
                     vertical_alignment: alignment::Vertical::Center,
                     shaping: text::Shaping::Basic,
                     wrapping: text::Wrapping::Word,
-                    letter_spacing: None,
                 },
                 core::Point {
                     x: region.center_x(),

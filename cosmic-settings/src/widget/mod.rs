@@ -121,10 +121,7 @@ pub fn coming_soon<'a, Message: Clone + 'static>(
 
     column::with_capacity(2)
         .push(back_link)
-        .push(
-            container(coming_soon_body(on_back))
-                .center_x(Length::Fill),
-        )
+        .push(container(coming_soon_body(on_back)).center_x(Length::Fill))
         .spacing(spacing.space_s)
         .width(Length::Fill)
         .into()
@@ -179,9 +176,7 @@ pub fn coming_soon_body<'a, Message: Clone + 'static>(on_back: Message) -> Eleme
 
 #[must_use]
 pub fn coming_soon_section() -> Section<crate::pages::Message> {
-    let mut section = Section::default()
-        .title(fl!("coming-soon"))
-        .search_ignore();
+    let mut section = Section::default().title(fl!("coming-soon")).search_ignore();
 
     section.view_fn = Box::new(move |binder, model, _section| {
         let page_info = model.info();
@@ -217,8 +212,10 @@ fn coming_soon_section_body<'a>(
     let description = text::body(fl!("coming-soon-description"));
 
     let go_back_button = parent.map(|parent_entity| {
-        button::standard(fl!("go-back"))
-            .leading_icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_LEFT_S_LINE))
+        button::secondary(fl!("go-back"))
+            .leading_icon(icon::from_svg_bytes(
+                icetron_assets::icons::system::ARROW_LEFT_S_LINE,
+            ))
             .on_press(crate::pages::Message::Page(parent_entity))
     });
 
@@ -298,7 +295,15 @@ pub fn page_list_item_colored<'a, Message: 'static + Clone>(
         .control(
             row::with_capacity(2)
                 .push(info_text)
-                .push(container(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(20)).padding(8))
+                .push(
+                    container(
+                        icon::icon(icon::from_svg_bytes(
+                            icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+                        ))
+                        .size(20),
+                    )
+                    .padding(8),
+                )
                 .align_y(Alignment::Center),
         )
         .padding(0)
@@ -320,13 +325,15 @@ pub fn sub_page_header<'a, Message: 'static + Clone>(
     parent_page: &'a str,
     on_press: Message,
 ) -> Element<'a, Message> {
-    let previous_button = button::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_LEFT_S_LINE))
-        .extra_small()
-        .padding(0)
-        .label(parent_page)
-        .spacing(4)
-        .class(button::ButtonClass::Link)
-        .on_press(on_press);
+    let previous_button = button::icon(icon::from_svg_bytes(
+        icetron_assets::icons::system::ARROW_LEFT_S_LINE,
+    ))
+    .extra_small()
+    .padding(0)
+    .label(parent_page)
+    .spacing(4)
+    .class(button::ButtonClass::Link)
+    .on_press(on_press);
 
     let sub_page_header = row::with_capacity(2).push(text::title3(sub_page));
 
@@ -345,7 +352,11 @@ pub fn go_next_item<Msg: Clone + 'static>(
     settings::item_row(vec![
         text::body(description).wrapping(Wrapping::Word).into(),
         horizontal_space().into(),
-        icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(16).into(),
+        icon::icon(icon::from_svg_bytes(
+            icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+        ))
+        .size(16)
+        .into(),
     ])
     .apply(widget::container)
     .class(cosmic::theme::Container::List)
@@ -366,7 +377,12 @@ pub fn go_next_with_item<'a, Msg: Clone + 'static>(
         horizontal_space().into(),
         widget::row::with_capacity(2)
             .push(item)
-            .push(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(16))
+            .push(
+                icon::icon(icon::from_svg_bytes(
+                    icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+                ))
+                .size(16),
+            )
             .align_y(Alignment::Center)
             .spacing(cosmic::theme::spacing().space_s)
             .into(),

@@ -476,7 +476,10 @@ fn shortcuts() -> Section<crate::pages::Message> {
 
 /// Display a category as a list item
 fn category_item(category: Category, name: &str, modified: u16) -> Element<'_, Message> {
-    let icon = icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(16);
+    let icon = icon::icon(icon::from_svg_bytes(
+        icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+    ))
+    .size(16);
 
     let control = if modified == 0 {
         Element::from(icon)

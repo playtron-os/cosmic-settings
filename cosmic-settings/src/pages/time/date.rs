@@ -358,10 +358,12 @@ impl Page {
                 .width(cosmic::iced::Length::Fill)
                 .into(),
             if selected {
-                widget::icon::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::CHECK_LINE))
-                    .size(16)
-                    .class(cosmic::theme::Svg::Custom(svg_accent.clone()))
-                    .into()
+                widget::icon::icon(widget::icon::from_svg_bytes(
+                    icetron_assets::icons::system::CHECK_LINE,
+                ))
+                .size(16)
+                .class(cosmic::theme::Svg::Custom(svg_accent.clone()))
+                .into()
             } else {
                 widget::horizontal_space().width(16).into()
             },
@@ -505,7 +507,12 @@ fn timezone() -> Section<crate::pages::Message> {
                     )
                     .wrapping(Wrapping::Word),
                 )
-                .push(widget::icon::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE)).size(16))
+                .push(
+                    widget::icon::icon(widget::icon::from_svg_bytes(
+                        icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+                    ))
+                    .size(16),
+                )
                 .apply(widget::container)
                 .class(cosmic::theme::Container::List)
                 .apply(widget::button::custom)

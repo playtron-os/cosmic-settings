@@ -31,8 +31,7 @@ use cosmic::{
     prelude::*,
     surface,
     widget::{
-        column, container, icon, id_container, nav_bar, row, scrollable, segmented_button,
-        settings,
+        column, container, icon, id_container, nav_bar, row, scrollable, segmented_button, settings,
     },
 };
 #[cfg(feature = "cosmic-comp-config")]
@@ -251,12 +250,12 @@ impl cosmic::Application for SettingsApp {
                 .align_y(iced::Alignment::Center)
                 .spacing(8)
                 .push(
-                    icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::SETTINGS_3_LINE))
-                        .size(18),
+                    icon::icon(icon::from_svg_bytes(
+                        icetron_assets::icons::system::SETTINGS_3_LINE,
+                    ))
+                    .size(18),
                 )
-                .push(
-                    cosmic::widget::text::heading(fl!("settings")),
-                )
+                .push(cosmic::widget::text::heading(fl!("settings")))
                 .into(),
         ]
     }
@@ -899,10 +898,7 @@ impl SettingsApp {
 
     fn set_title(&mut self) -> Task<crate::Message> {
         self.set_window_title(
-            format!(
-                "{} - COSMIC Settings",
-                self.pages.info[self.active_page].title
-            ),
+            format!("{} - Settings", self.pages.info[self.active_page].title),
             self.core.main_window_id().unwrap(),
         )
     }
@@ -1004,10 +1000,7 @@ impl SettingsApp {
             .apply(|w| id_container(w, self.id()));
 
         column::with_capacity(2)
-            .push(
-                container(self.page_container(header))
-                    .padding([24, 0, 0, 0]),
-            )
+            .push(container(self.page_container(header)).padding([24, 0, 0, 0]))
             .push(view)
             .height(Length::Fill)
             .into()

@@ -13,15 +13,18 @@ tokio = { version = "1.49.0", features = ["macros"] }
 [workspace.dependencies.libcosmic]
 features = ["dbus-config", "desktop", "multi-window", "winit", "tokio", "qr_code"]
 git = "https://github.com/playtron-os/libcosmic"
+branch = "feat/reskin"
 
 [workspace.dependencies.cosmic-config]
 git = "https://github.com/playtron-os/libcosmic"
+branch = "feat/reskin"
 
 [workspace.dependencies.cosmic-bg-config]
 git = "https://github.com/pop-os/cosmic-bg"
 
 [workspace.dependencies.cosmic-comp-config]
 git = "https://github.com/playtron-os/cosmic-comp"
+rev = "a913b75"
 features = ["output"]
 
 [workspace.dependencies.cosmic-idle-config]
@@ -51,12 +54,9 @@ inherits = "release"
 lto = "off"
 debug = true
 
-# [patch.'https://github.com/pop-os/cosmic-text']
-# [patch.'https://github.com/pop-os/cosmic-text']
-# cosmic-text = { git = "https://github.com/pop-os/cosmic-text//", rev = "b017d7c" }
-
-# [patch.'https://github.com/pop-os/cosmic-text.git']
-# cosmic-text = { git = "https://github.com/pop-os/cosmic-text//", rev = "d5a972a" }
+# Pin cosmic-text to version compatible with our iced submodule
+[patch.'https://github.com/pop-os/cosmic-text.git']
+cosmic-text = { git = "https://github.com/pop-os/cosmic-text//", rev = "d5a972a" }
 
 # [patch.'https://github.com/pop-os/cosmic-protocols']
 # cosmic-protocols = { git = "https://github.com/pop-os/cosmic-protocols//", rev = "d0e95be" }
@@ -65,24 +65,40 @@ debug = true
 # [patch.'https://github.com/pop-os/cosmic-settings-daemon']
 # cosmic-settings-config = { git = "https://github.com/pop-os/cosmic-settings-daemon//", branch = "input_nobuild" }
 
-# Redirect pop-os/libcosmic to playtron-os fork (required because transitive deps reference pop-os)
+# Redirect pop-os/libcosmic to playtron-os fork feat/reskin branch
 [patch.'https://github.com/pop-os/libcosmic']
-libcosmic = { git = "https://github.com/playtron-os/libcosmic" }
-cosmic-config = { git = "https://github.com/playtron-os/libcosmic" }
-cosmic-theme = { git = "https://github.com/playtron-os/libcosmic" }
-iced = { git = "https://github.com/playtron-os/libcosmic" }
-iced_core = { git = "https://github.com/playtron-os/libcosmic" }
-iced_runtime = { git = "https://github.com/playtron-os/libcosmic" }
-iced_renderer = { git = "https://github.com/playtron-os/libcosmic" }
-iced_widget = { git = "https://github.com/playtron-os/libcosmic" }
-iced_futures = { git = "https://github.com/playtron-os/libcosmic" }
-iced_accessibility = { git = "https://github.com/playtron-os/libcosmic" }
-iced_tiny_skia = { git = "https://github.com/playtron-os/libcosmic" }
-iced_winit = { git = "https://github.com/playtron-os/libcosmic" }
-iced_wgpu = { git = "https://github.com/playtron-os/libcosmic" }
-iced_graphics = { git = "https://github.com/playtron-os/libcosmic" }
+libcosmic = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+cosmic-config = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+cosmic-theme = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_core = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_runtime = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_renderer = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_widget = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_futures = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_accessibility = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_tiny_skia = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_winit = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_wgpu = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
+iced_graphics = { git = "https://github.com/playtron-os/libcosmic", branch = "feat/reskin" }
 
-# For local development (uncomment to use ../libcosmic instead of git)
+# For local development (uncomment and comment out the above patch section)
+# [patch.'https://github.com/pop-os/libcosmic']
+# libcosmic = { path = "../libcosmic" }
+# cosmic-config = { path = "../libcosmic/cosmic-config" }
+# cosmic-theme = { path = "../libcosmic/cosmic-theme" }
+# iced = { path = "../libcosmic/iced" }
+# iced_core = { path = "../libcosmic/iced/core" }
+# iced_runtime = { path = "../libcosmic/iced/runtime" }
+# iced_renderer = { path = "../libcosmic/iced/renderer" }
+# iced_widget = { path = "../libcosmic/iced/widget" }
+# iced_futures = { path = "../libcosmic/iced/futures" }
+# iced_accessibility = { path = "../libcosmic/iced/accessibility" }
+# iced_tiny_skia = { path = "../libcosmic/iced/tiny_skia" }
+# iced_winit = { path = "../libcosmic/iced/winit" }
+# iced_wgpu = { path = "../libcosmic/iced/wgpu" }
+# iced_graphics = { path = "../libcosmic/iced/graphics" }
+
 # [patch.'https://github.com/playtron-os/libcosmic']
 # libcosmic = { path = "../libcosmic" }
 # cosmic-config = { path = "../libcosmic/cosmic-config" }

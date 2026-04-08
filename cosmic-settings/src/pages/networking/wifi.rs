@@ -224,7 +224,12 @@ impl page::Page<crate::pages::Message> for Page {
 
                 widget::dialog()
                     .title(fl!("forget-dialog"))
-                    .icon(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::INFORMATION_LINE)).size(64))
+                    .icon(
+                        icon::icon(icon::from_svg_bytes(
+                            icetron_assets::icons::system::INFORMATION_LINE,
+                        ))
+                        .size(64),
+                    )
                     .body(fl!("forget-dialog", "description"))
                     .primary_action(primary_action)
                     .secondary_action(secondary_action)
@@ -874,7 +879,9 @@ fn devices_view() -> Section<crate::pages::Message> {
                 .push(widget::list_column().add(wifi_enable))
                 .push_maybe(state.airplane_mode.then(|| {
                     widget::row::with_capacity(2)
-                        .push(icon::icon(icon::from_svg_bytes(icetron_assets::icons::device::AIRPLANE_MODE)))
+                        .push(icon::icon(icon::from_svg_bytes(
+                            icetron_assets::icons::device::AIRPLANE_MODE,
+                        )))
                         .push(widget::text::body(&section.descriptions[airplane_mode_txt]))
                         .spacing(8)
                         .align_y(Alignment::Center)
@@ -937,11 +944,15 @@ fn devices_view() -> Section<crate::pages::Message> {
                         };
 
                         let identifier = widget::row::with_capacity(3)
-                            .push(crate::icon_helper::named_icon(wifi_icon(network.strength), 16))
-                            .push_maybe(
-                                is_encrypted
-                                    .then(|| widget::icon::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::LOCK_LINE))),
-                            )
+                            .push(crate::icon_helper::named_icon(
+                                wifi_icon(network.strength),
+                                16,
+                            ))
+                            .push_maybe(is_encrypted.then(|| {
+                                widget::icon::icon(widget::icon::from_svg_bytes(
+                                    icetron_assets::icons::system::LOCK_LINE,
+                                ))
+                            }))
                             .push(
                                 widget::text::body(network.ssid.as_ref()).wrapping(Wrapping::Glyph),
                             )
@@ -958,8 +969,9 @@ fn devices_view() -> Section<crate::pages::Message> {
                                 .into()
                         };
 
-                        let view_more_button =
-                            widget::button::icon(widget::icon::from_svg_bytes(icetron_assets::icons::system::MORE_LINE));
+                        let view_more_button = widget::button::icon(widget::icon::from_svg_bytes(
+                            icetron_assets::icons::system::MORE_LINE,
+                        ));
 
                         let view_more: Option<Element<_>> = if page
                             .view_more_popup
