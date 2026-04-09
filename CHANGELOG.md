@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/playtron-os/cosmic-settings/compare/v1.0.3...v1.0.4) (2026-04-09)
+
+
+### Bug Fixes
+
+* update app icon ([c3994dc](https://github.com/playtron-os/cosmic-settings/commit/c3994dca57b65be1762e8a26a7f44932cdf3cf8a))
+
 ## [1.0.3](https://github.com/playtron-os/cosmic-settings/compare/v1.0.2...v1.0.3) (2026-03-31)
 
 
