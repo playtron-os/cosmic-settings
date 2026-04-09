@@ -228,7 +228,7 @@ impl Manager {
                 }
             }
 
-            app::Message::SetTheme(cosmic::theme::system_preference())
+            app::Message::SetTheme(cosmic::theme::system_light())
         })
     }
 

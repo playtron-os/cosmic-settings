@@ -215,9 +215,11 @@ fn popover_menu(id: DefaultKey) -> cosmic::Element<'static, Message> {
 fn popover_button(id: DefaultKey, expanded: bool) -> cosmic::Element<'static, Message> {
     let on_press = Message::ExpandInputSourcePopover(if expanded { None } else { Some(id) });
 
-    let button = button::icon(icon::from_name("view-more-symbolic"))
-        .extra_small()
-        .on_press(on_press);
+    let button = button::icon(icon::from_svg_bytes(
+        icetron_assets::icons::system::MORE_LINE,
+    ))
+    .extra_small()
+    .on_press(on_press);
 
     if expanded {
         widget::popover(button)
@@ -264,13 +266,7 @@ impl page::Page<crate::pages::Message> for Page {
         &self,
         sections: &mut SlotMap<section::Entity, Section<crate::pages::Message>>,
     ) -> Option<page::Content> {
-        Some(vec![
-            sections.insert(input_sources()),
-            sections.insert(special_character_entry()),
-            sections.insert(keyboard_shortcuts()),
-            sections.insert(keyboard_typing_assist()),
-            sections.insert(keyboard_num_lock()),
-        ])
+        Some(vec![sections.insert(crate::widget::coming_soon_section())])
     }
 
     fn info(&self) -> page::Info {

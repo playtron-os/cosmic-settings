@@ -249,9 +249,9 @@ impl Content {
                     .position(|theme| theme.id == active_icon_theme);
                 self.icon_handles = icon_handles;
 
-                return cosmic::task::message(app::Message::SetTheme(
-                    cosmic::theme::system_preference(),
-                ));
+                return cosmic::task::message(
+                    app::Message::SetTheme(cosmic::theme::system_light()),
+                );
             }
         }
         Task::none()

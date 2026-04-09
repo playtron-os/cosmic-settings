@@ -7,14 +7,14 @@
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::too_many_lines)]
 
-pub mod app;
-use std::str::FromStr;
-
-pub use app::{Message, SettingsApp};
 pub mod config;
+pub mod icon_helper;
 
 #[macro_use]
 pub mod localize;
+
+pub mod app;
+pub use app::{Message, SettingsApp};
 pub mod pages;
 pub mod subscription;
 pub mod theme;
@@ -22,6 +22,7 @@ pub mod utils;
 pub mod widget;
 
 use std::path::PathBuf;
+use std::str::FromStr;
 
 use clap::{Parser, Subcommand};
 use cosmic::{app::CosmicFlags, iced::Limits};
@@ -54,12 +55,6 @@ pub enum AppearanceCommands {
 
 #[derive(Subcommand, Debug, Serialize, Deserialize, Clone)]
 pub enum PageCommands {
-    /// Accessibility settings page
-    #[cfg(feature = "page-accessibility")]
-    Accessibility,
-    /// Accessibility Magnifier settings page
-    #[cfg(feature = "page-accessibility")]
-    AccessibilityMagnifier,
     /// About settings page
     #[cfg(feature = "page-about")]
     About,
@@ -80,6 +75,7 @@ pub enum PageCommands {
     #[cfg(feature = "page-default-apps")]
     DefaultApps,
     /// Desktop settings page
+    #[cfg(feature = "page-desktop")]
     Desktop,
     /// Displays settings page
     #[cfg(feature = "page-display")]
@@ -96,9 +92,6 @@ pub enum PageCommands {
     /// Keyboard settings page
     #[cfg(feature = "page-input")]
     Keyboard,
-    /// Legacy Applications settings page
-    #[cfg(feature = "page-legacy-applications")]
-    LegacyApplications,
     /// Mouse settings page
     #[cfg(feature = "page-input")]
     Mouse,
@@ -111,9 +104,6 @@ pub enum PageCommands {
     /// Panel applets page
     #[cfg(feature = "wayland")]
     PanelApplet,
-    /// Power settings page
-    #[cfg(feature = "page-power")]
-    Power,
     /// Region & Language settings page
     #[cfg(feature = "page-region")]
     RegionLanguage,
@@ -132,9 +122,6 @@ pub enum PageCommands {
     /// Users settings page
     #[cfg(feature = "page-users")]
     Users,
-    /// VPN settings page
-    #[cfg(feature = "page-networking")]
-    Vpn,
     /// Wallpaper settings page
     Wallpaper,
     /// Window management settings page

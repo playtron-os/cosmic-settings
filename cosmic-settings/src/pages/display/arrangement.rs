@@ -14,7 +14,9 @@ use cosmic::widget::segmented_button::{self, SingleSelectModel};
 use cosmic_randr_shell::{self as randr, OutputKey};
 use randr::Transform;
 
-const UNIT_PIXELS: f32 = 12.0;
+use crate::theme::{STATE_DEFAULT, STATE_INACTIVE, STATE_INACTIVE_FILL};
+
+const UNIT_PIXELS: f32 = 10.0;
 const VERTICAL_OVERHEAD: f32 = 1.5;
 const VERTICAL_DISPLAY_OVERHEAD: f32 = 4.0;
 
@@ -298,10 +300,6 @@ impl<Message: Clone> Widget<Message, cosmic::Theme, Renderer> for Arrangement<'_
         let state = tree.state.downcast_ref::<State>();
 
         let bounds = layout.bounds();
-        let theme = cosmic::theme::active();
-        let cosmic_theme = theme.cosmic();
-
-        let border_color = cosmic_theme.palette.neutral_7;
 
         let active_key = self.tab_model.active_data::<OutputKey>();
 
@@ -315,66 +313,52 @@ impl<Message: Clone> Widget<Message, cosmic::Theme, Renderer> for Arrangement<'_
                 region = dragged_region;
             }
 
-            let (background, border_color) = if Some(&output_key) == active_key {
-                let mut border_color = border_color;
-                border_color.alpha = 0.4;
+            let is_active = Some(&output_key) == active_key;
 
-                (cosmic_theme.accent_color(), border_color)
+            let (background, border_color, text_color) = if is_active {
+                (
+                    cosmic::iced::Color {
+                        a: 0.1,
+                        ..STATE_DEFAULT
+                    },
+                    STATE_DEFAULT,
+                    STATE_DEFAULT,
+                )
             } else {
-                (cosmic_theme.palette.neutral_4, border_color)
+                (STATE_INACTIVE_FILL, STATE_INACTIVE, STATE_INACTIVE)
             };
 
             renderer.fill_quad(
                 Quad {
                     bounds: region,
                     border: Border {
-                        color: border_color.into(),
+                        color: border_color,
                         radius: 4.0.into(),
-                        width: 3.0,
+                        width: 1.5,
                     },
                     shadow: Default::default(),
                 },
-                core::Background::Color(background.into()),
-            );
-
-            let id_bounds = Rectangle {
-                x: region.x + (region.width / 2.0 - 36.0),
-                y: region.y + (region.height / 2.0 - 23.0),
-                width: 72.0,
-                height: 46.0,
-            };
-
-            renderer.fill_quad(
-                Quad {
-                    bounds: id_bounds,
-                    border: Border {
-                        radius: 30.0.into(),
-                        ..Default::default()
-                    },
-                    shadow: Default::default(),
-                },
-                core::Background::Color(cosmic_theme.palette.neutral_1.into()),
+                core::Background::Color(background),
             );
 
             core::text::Renderer::fill_text(
                 renderer,
                 core::Text {
                     content: itoa::Buffer::new().format(id + 1).to_string(),
-                    size: core::Pixels(24.0),
+                    size: core::Pixels(16.0),
                     line_height: core::text::LineHeight::Relative(1.2),
                     font: cosmic::font::bold(),
-                    bounds: id_bounds.size(),
+                    bounds: region.size(),
                     horizontal_alignment: alignment::Horizontal::Center,
                     vertical_alignment: alignment::Vertical::Center,
                     shaping: text::Shaping::Basic,
                     wrapping: text::Wrapping::Word,
-                    letter_spacing: None,
                 },
                 core::Point {
-                    x: id_bounds.center_x(),
-                    y: id_bounds.center_y(),
+                    x: region.center_x(),
+                    y: region.center_y(),
                 },
-                cosmic_theme.palette.neutral_10.into(),
+                text_color,
                 *viewport,
             );
         }

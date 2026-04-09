@@ -1333,7 +1333,12 @@ pub fn settings() -> Section<crate::pages::Message> {
                     // Show a folder icon if the active category is a custom folder.
                     .push_maybe(
                         if let Some(Category::RecentFolder(_)) = page.categories.selected {
-                            Some(icon::from_name("folder-symbolic").size(16).icon())
+                            Some(
+                                icon::icon(icon::from_svg_bytes(
+                                    icetron_assets::icons::system::FOLDER,
+                                ))
+                                .size(16),
+                            )
                         } else {
                             None
                         },

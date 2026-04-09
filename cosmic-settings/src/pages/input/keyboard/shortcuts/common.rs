@@ -210,7 +210,12 @@ impl Model {
 
             let dialog = widget::dialog()
                 .title(fl!("replace-shortcut-dialog"))
-                .icon(icon::from_name("dialog-warning").size(64))
+                .icon(
+                    icon::icon(icon::from_svg_bytes(
+                        icetron_assets::icons::system::ERROR_WARNING_LINE,
+                    ))
+                    .size(64),
+                )
                 .body(fl!(
                     "replace-shortcut-dialog",
                     "desc",
@@ -795,9 +800,11 @@ fn context_drawer<'a>(
             children.push(input);
 
             if shortcut.is_saved {
-                let delete_button = widget::button::icon(icon::from_name("edit-delete-symbolic"))
-                    .on_press(ShortcutMessage::DeleteBinding(bind_id))
-                    .into();
+                let delete_button = widget::button::icon(icon::from_svg_bytes(
+                    icetron_assets::icons::system::DELETE_BIN_LINE,
+                ))
+                .on_press(ShortcutMessage::DeleteBinding(bind_id))
+                .into();
                 children.push(delete_button);
             }
 
@@ -871,10 +878,17 @@ fn shortcut_item(custom: bool, id: usize, data: &ShortcutModel) -> Element<'_, S
     let control = widget::row::with_capacity(4)
         .push_maybe(modified)
         .push(shortcuts)
-        .push(icon::from_name("go-next-symbolic").size(16))
+        .push(
+            icon::icon(icon::from_svg_bytes(
+                icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+            ))
+            .size(16),
+        )
         .push_maybe(custom.then(|| {
-            widget::button::icon(icon::from_name("edit-delete-symbolic"))
-                .on_press(LocalMessage::Remove)
+            widget::button::icon(icon::from_svg_bytes(
+                icetron_assets::icons::system::DELETE_BIN_LINE,
+            ))
+            .on_press(LocalMessage::Remove)
         }))
         .align_y(Alignment::Center)
         .spacing(8);

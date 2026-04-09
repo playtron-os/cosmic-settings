@@ -129,11 +129,7 @@ impl page::Page<crate::pages::Message> for Page {
         &self,
         sections: &mut SlotMap<section::Entity, Section<crate::pages::Message>>,
     ) -> Option<page::Content> {
-        Some(vec![
-            sections.insert(date()),
-            sections.insert(timezone()),
-            sections.insert(format()),
-        ])
+        Some(vec![sections.insert(crate::widget::coming_soon_section())])
     }
 
     fn info(&self) -> page::Info {
@@ -362,11 +358,12 @@ impl Page {
                 .width(cosmic::iced::Length::Fill)
                 .into(),
             if selected {
-                widget::icon::from_name("object-select-symbolic")
-                    .size(16)
-                    .icon()
-                    .class(cosmic::theme::Svg::Custom(svg_accent.clone()))
-                    .into()
+                widget::icon::icon(widget::icon::from_svg_bytes(
+                    icetron_assets::icons::system::CHECK_LINE,
+                ))
+                .size(16)
+                .class(cosmic::theme::Svg::Custom(svg_accent.clone()))
+                .into()
             } else {
                 widget::horizontal_space().width(16).into()
             },
@@ -510,7 +507,12 @@ fn timezone() -> Section<crate::pages::Message> {
                     )
                     .wrapping(Wrapping::Word),
                 )
-                .push(widget::icon::from_name("go-next-symbolic").size(16).icon())
+                .push(
+                    widget::icon::icon(widget::icon::from_svg_bytes(
+                        icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+                    ))
+                    .size(16),
+                )
                 .apply(widget::container)
                 .class(cosmic::theme::Container::List)
                 .apply(widget::button::custom)

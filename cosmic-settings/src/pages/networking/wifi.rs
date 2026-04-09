@@ -207,7 +207,6 @@ impl page::Page<crate::pages::Message> for Page {
 
                 widget::dialog()
                     .title(fl!("auth-dialog"))
-                    .icon(icon::from_name("preferences-wireless-symbolic").size(64))
                     .body(fl!("auth-dialog", "wifi-description"))
                     .control(control)
                     .primary_action(primary_action)
@@ -225,7 +224,12 @@ impl page::Page<crate::pages::Message> for Page {
 
                 widget::dialog()
                     .title(fl!("forget-dialog"))
-                    .icon(icon::from_name("dialog-information").size(64))
+                    .icon(
+                        icon::icon(icon::from_svg_bytes(
+                            icetron_assets::icons::system::INFORMATION_LINE,
+                        ))
+                        .size(64),
+                    )
                     .body(fl!("forget-dialog", "description"))
                     .primary_action(primary_action)
                     .secondary_action(secondary_action)
@@ -280,7 +284,6 @@ impl page::Page<crate::pages::Message> for Page {
     fn header_view(&self) -> Option<cosmic::Element<'_, crate::pages::Message>> {
         Some(
             widget::button::standard(fl!("add-network"))
-                .trailing_icon(icon::from_name("window-pop-out-symbolic"))
                 .on_press(Message::AddNetwork)
                 .apply(widget::container)
                 .width(Length::Fill)
@@ -747,7 +750,10 @@ impl Page {
                     )
                     .collect()
                     .then(|id| {
-                        if id.get(0).is_some_and(|id| *id == SECURE_INPUT_WIFI.clone()) {
+                        if id
+                            .first()
+                            .is_some_and(|id| *id == SECURE_INPUT_WIFI.clone())
+                        {
                             Task::none()
                         } else {
                             focus(SECURE_INPUT_WIFI.clone())
@@ -876,7 +882,9 @@ fn devices_view() -> Section<crate::pages::Message> {
                 .push(widget::list_column().add(wifi_enable))
                 .push_maybe(state.airplane_mode.then(|| {
                     widget::row::with_capacity(2)
-                        .push(icon::from_name("airplane-mode-symbolic"))
+                        .push(icon::icon(icon::from_svg_bytes(
+                            icetron_assets::icons::device::AIRPLANE_MODE,
+                        )))
                         .push(widget::text::body(&section.descriptions[airplane_mode_txt]))
                         .spacing(8)
                         .align_y(Alignment::Center)
@@ -939,11 +947,15 @@ fn devices_view() -> Section<crate::pages::Message> {
                         };
 
                         let identifier = widget::row::with_capacity(3)
-                            .push(widget::icon::from_name(wifi_icon(network.strength)))
-                            .push_maybe(
-                                is_encrypted
-                                    .then(|| widget::icon::from_name("connection-secure-symbolic")),
-                            )
+                            .push(crate::icon_helper::named_icon(
+                                wifi_icon(network.strength),
+                                16,
+                            ))
+                            .push_maybe(is_encrypted.then(|| {
+                                widget::icon::icon(widget::icon::from_svg_bytes(
+                                    icetron_assets::icons::system::LOCK_LINE,
+                                ))
+                            }))
                             .push(
                                 widget::text::body(network.ssid.as_ref()).wrapping(Wrapping::Glyph),
                             )
@@ -953,12 +965,16 @@ fn devices_view() -> Section<crate::pages::Message> {
                             widget::button::text(connect_txt).on_press(msg).into()
                         } else {
                             widget::text::body(connect_txt)
-                                .align_y(Alignment::Center)
+                                .class(cosmic::theme::Text::Color(crate::theme::STATE_DEFAULT))
+                                .apply(widget::container)
+                                .padding([4, 12])
+                                .class(crate::theme::connected_chip())
                                 .into()
                         };
 
-                        let view_more_button =
-                            widget::button::icon(widget::icon::from_name("view-more-symbolic"));
+                        let view_more_button = widget::button::icon(widget::icon::from_svg_bytes(
+                            icetron_assets::icons::system::MORE_LINE,
+                        ));
 
                         let view_more: Option<Element<_>> = if page
                             .view_more_popup

@@ -281,10 +281,10 @@ fn input() -> Section<crate::pages::Message> {
             let volume_control = widget::row::with_capacity(4)
                 .align_y(Alignment::Center)
                 .push(
-                    widget::button::icon(widget::icon::from_name(if page.model.source_mute {
-                        "microphone-sensitivity-muted-symbolic"
+                    widget::button::icon(widget::icon::from_svg_bytes(if page.model.source_mute {
+                        icetron_assets::icons::media::MIC_OFF_LINE
                     } else {
-                        "audio-input-microphone-symbolic"
+                        icetron_assets::icons::media::MIC_LINE
                     }))
                     .on_press(Message::ToggleSourceMute.into()),
                 )
@@ -359,9 +359,9 @@ fn output() -> Section<crate::pages::Message> {
                 .align_y(Alignment::Center)
                 .push(
                     widget::button::icon(if page.model.sink_mute {
-                        widget::icon::from_name("audio-volume-muted-symbolic")
+                        widget::icon::from_svg_bytes(icetron_assets::icons::media::VOLUME_MUTE_LINE)
                     } else {
-                        widget::icon::from_name("audio-volume-high-symbolic")
+                        widget::icon::from_svg_bytes(icetron_assets::icons::media::VOLUME_UP_LINE)
                     })
                     .on_press(Message::ToggleSinkMute.into()),
                 )
@@ -443,7 +443,11 @@ fn device_profiles() -> Section<crate::pages::Message> {
             let descriptions = &section.descriptions;
             let button = widget::row::with_children(vec![
                 widget::horizontal_space().into(),
-                widget::icon::from_name("go-next-symbolic").size(16).into(),
+                widget::icon::icon(widget::icon::from_svg_bytes(
+                    icetron_assets::icons::system::ARROW_RIGHT_S_LINE,
+                ))
+                .size(16)
+                .into(),
             ]);
 
             let device_profiles = settings::item::builder(&*descriptions[button_txt])

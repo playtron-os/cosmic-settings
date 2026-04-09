@@ -1,11 +1,10 @@
 // Copyright 2024 System76 <info@system76.com>
 // SPDX-License-Identifier: GPL-3.0-only
 
-pub mod vpn;
 pub mod wifi;
 pub mod wired;
 
-use std::{ffi::OsStr, process::Stdio, sync::Arc};
+use std::{process::Stdio, sync::Arc};
 
 use anyhow::Context;
 use cosmic::{Apply, Element, Task, widget};
@@ -28,7 +27,6 @@ pub struct Page {
     entity: page::Entity,
     nm_task: Option<tokio::sync::oneshot::Sender<()>>,
     devices: Vec<Arc<network_manager::devices::DeviceInfo>>,
-    vpn: page::Entity,
     wifi: page::Entity,
     wired: page::Entity,
 }
@@ -86,7 +84,6 @@ impl page::Page<crate::pages::Message> for Page {
         crate::slab!(descriptions {
             wifi_desc = fl!("connections-and-profiles", variant = "wifi");
             wired_desc = fl!("connections-and-profiles", variant = "wired");
-            vpn_desc = fl!("connections-and-profiles", variant = "vpn");
         });
 
         let device_list = Section::default().descriptions(descriptions).view::<Self>(
@@ -111,7 +108,8 @@ impl page::Page<crate::pages::Message> for Page {
                     .iter()
                     .filter(|device| device.device_type == DeviceType::Wifi)
                     .map(|device| {
-                        crate::widget::page_list_item(
+                        let is_activated = matches!(device.state, DeviceState::Activated);
+                        crate::widget::page_list_item_colored(
                             if multiple_wifi_adapters {
                                 fl!("wifi", "adapter", id = device.interface.as_str())
                             } else {
@@ -145,6 +143,7 @@ impl page::Page<crate::pages::Message> for Page {
                                 DeviceState::Unknown => fl!("network-device-state", "unknown"),
                                 DeviceState::Unmanaged => fl!("network-device-state", "unmanaged"),
                             },
+                            is_activated.then_some(crate::theme::STATE_DEFAULT),
                             "preferences-wireless-symbolic",
                             Message::OpenPage {
                                 page: page.wifi,
@@ -158,7 +157,8 @@ impl page::Page<crate::pages::Message> for Page {
                     .iter()
                     .filter(|device| device.device_type == DeviceType::Ethernet)
                     .map(|device| {
-                        crate::widget::page_list_item(
+                        let is_activated = matches!(device.state, DeviceState::Activated);
+                        crate::widget::page_list_item_colored(
                             if multiple_wired_adapters {
                                 fl!("wired", "adapter", id = device.interface.as_str())
                             } else {
@@ -192,6 +192,7 @@ impl page::Page<crate::pages::Message> for Page {
                                 DeviceState::Unknown => fl!("network-device-state", "unknown"),
                                 DeviceState::Unmanaged => fl!("network-device-state", "unmanaged"),
                             },
+                            is_activated.then_some(crate::theme::STATE_DEFAULT),
                             "preferences-wired-symbolic",
                             Message::OpenPage {
                                 page: page.wired,
@@ -203,16 +204,6 @@ impl page::Page<crate::pages::Message> for Page {
                 let device_list = wifi_devices
                     .chain(wired_devices)
                     .fold(widget::column(), |column, device| column.push(device))
-                    .push(crate::widget::page_list_item(
-                        fl!("vpn"),
-                        &descs[vpn_desc],
-                        "",
-                        "preferences-vpn-symbolic",
-                        Message::OpenPage {
-                            page: page.vpn,
-                            device: None,
-                        },
-                    ))
                     .spacing(cosmic::theme::active().cosmic().spacing.space_s);
 
                 Element::from(device_list).map(crate::pages::Message::Networking)
@@ -254,12 +245,10 @@ impl page::AutoBind<crate::pages::Message> for Page {
     fn sub_pages(
         mut page: cosmic_settings_page::Insert<crate::pages::Message>,
     ) -> cosmic_settings_page::Insert<crate::pages::Message> {
-        let vpn = page.sub_page_with_id::<vpn::Page>();
         let wifi = page.sub_page_with_id::<wifi::Page>();
         let wired = page.sub_page_with_id::<wired::Page>();
 
         let model = page.model.page_mut::<Self>().unwrap();
-        model.vpn = vpn;
         model.wifi = wifi;
         model.wired = wired;
 
@@ -351,16 +340,6 @@ impl Page {
 
         Task::none()
     }
-}
-
-async fn nm_add_vpn_file<P: AsRef<OsStr>>(type_: &str, path: P) -> Result<(), String> {
-    tokio::process::Command::new("nmcli")
-        .args(["connection", "import", "type", type_, "file"])
-        .arg(path)
-        .stderr(Stdio::piped())
-        .output()
-        .await
-        .apply(crate::utils::map_stderr_output)
 }
 
 async fn nm_add_wired() -> Result<(), String> {

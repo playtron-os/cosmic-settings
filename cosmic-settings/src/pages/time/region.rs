@@ -128,10 +128,7 @@ impl page::Page<crate::pages::Message> for Page {
         &self,
         sections: &mut SlotMap<section::Entity, Section<crate::pages::Message>>,
     ) -> Option<page::Content> {
-        Some(vec![
-            sections.insert(preferred_languages::section()),
-            sections.insert(formatting::section()),
-        ])
+        Some(vec![sections.insert(crate::widget::coming_soon_section())])
     }
 
     fn info(&self) -> page::Info {
@@ -370,11 +367,12 @@ impl Page {
                         .width(Length::Fill)
                         .into(),
                     if is_installed {
-                        widget::icon::from_name("object-select-symbolic")
-                            .size(16)
-                            .icon()
-                            .class(cosmic::theme::Svg::Custom(svg_accent.clone()))
-                            .into()
+                        widget::icon::icon(widget::icon::from_svg_bytes(
+                            icetron_assets::icons::system::CHECK_LINE,
+                        ))
+                        .size(16)
+                        .class(cosmic::theme::Svg::Custom(svg_accent.clone()))
+                        .into()
                     } else {
                         widget::horizontal_space().width(16).into()
                     },
@@ -498,11 +496,12 @@ impl Page {
                         .width(Length::Fill)
                         .into(),
                     if is_selected {
-                        widget::icon::from_name("object-select-symbolic")
-                            .size(16)
-                            .icon()
-                            .class(cosmic::theme::Svg::Custom(svg_accent.clone()))
-                            .into()
+                        widget::icon::icon(widget::icon::from_svg_bytes(
+                            icetron_assets::icons::system::CHECK_LINE,
+                        ))
+                        .size(16)
+                        .class(cosmic::theme::Svg::Custom(svg_accent.clone()))
+                        .into()
                     } else {
                         widget::horizontal_space().width(16).into()
                     },
@@ -811,9 +810,11 @@ fn localized_locale(locale: &locale::Locale, lang_code: String) -> SystemLocale 
 fn popover_button(id: usize, expanded: bool) -> Element<'static, Message> {
     let on_press = Message::ExpandLanguagePopover(if expanded { None } else { Some(id) });
 
-    let button = button::icon(widget::icon::from_name("view-more-symbolic"))
-        .extra_small()
-        .on_press(on_press);
+    let button = button::icon(widget::icon::from_svg_bytes(
+        icetron_assets::icons::system::MORE_LINE,
+    ))
+    .extra_small()
+    .on_press(on_press);
 
     if expanded {
         widget::popover(button)

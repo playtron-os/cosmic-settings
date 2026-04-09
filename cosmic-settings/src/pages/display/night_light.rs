@@ -28,7 +28,7 @@ pub fn view(
         .push_maybe(button.map(|(text, message)| {
             button::text(text)
                 .class(cosmic::theme::Button::Link)
-                .trailing_icon(icon::from_name("go-next-symbolic").size(16))
+                .trailing_icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE))
                 .on_press(message)
         }));
 
@@ -36,7 +36,7 @@ pub fn view(
         row::with_capacity(2)
             .align_y(Alignment::Center)
             .push(content)
-            .push(icon::from_name("object-select-symbolic").size(24))
+            .push(icon::icon(icon::from_svg_bytes(icetron_assets::icons::system::CHECK_LINE)).size(24))
             .apply(Element::from)
             .apply(container)
             .class(cosmic::theme::Container::List)
@@ -68,7 +68,7 @@ impl super::Page {
                                 .on_toggle(Message::NightLight(NightLight::Toggle)),
                         )
                         .push(
-                            button::icon(icon::from_name("go-next-symbolic"))
+                            button::icon(icon::from_svg_bytes(icetron_assets::icons::system::ARROW_RIGHT_S_LINE))
                                 .extra_small()
                                 .on_press(Message::NightLightContext),
                         ),
