@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/playtron-os/cosmic-settings/compare/v1.0.4...v1.0.5) (2026-04-24)
+
+
+### Bug Fixes
+
+* update libcosmic to update header bar ([dee9003](https://github.com/playtron-os/cosmic-settings/commit/dee9003720a47cac99c6d155590899b1e7b7e60b))
+
 ## [1.0.4](https://github.com/playtron-os/cosmic-settings/compare/v1.0.3...v1.0.4) (2026-04-09)
 
 
