@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/playtron-os/cosmic-settings/compare/v1.0.5...v1.0.6) (2026-04-24)
+
+
+### Bug Fixes
+
+* test release since last one was broken ([fbc7b2e](https://github.com/playtron-os/cosmic-settings/commit/fbc7b2e2b3962916a453a33c2fc7c0b055a2740c))
+
 ## [1.0.5](https://github.com/playtron-os/cosmic-settings/compare/v1.0.4...v1.0.5) (2026-04-24)
 
 
