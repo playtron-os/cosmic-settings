@@ -26,6 +26,7 @@ plugins:
   - - "@semantic-release/exec"
     - shell: true
       prepareCmd: |
+        set -e
         sed -i '0,/^version = "[0-9]\+\.[0-9]\+\.[0-9]\+"$/s//version = "${nextRelease.version}"/' cosmic-settings/Cargo.toml
         sed -i 's/^Version: .*/Version: ${nextRelease.version}/' pkg/rpm/cosmic-settings.spec
         task docker:run TARGET=dist:all ARCH=x86_64 TARGET_ARCH=x86_64-unknown-linux-gnu
